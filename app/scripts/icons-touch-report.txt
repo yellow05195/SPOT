@@ -1,0 +1,145 @@
+amazon: no better (ico 0)
+ups: no better (ico 0)
+dhl: no better (ico 0)
+fedex: no better (ico 0)
+maersk: no better (ico 0)
+cocacola: kept png 180
+pepsico: kept png 256
+celsius: kept png 192
+monster: kept png 180
+starbucks: kept png 180
+tesla: kept png 152
+ford: touch jpg 180 <- https://www.ford.com/acslibs/content/dam/na/ford/en_us/img/shared/favicon-180x180.png
+rivian: kept png 180
+uber: kept png 180
+toyota: no better (none)
+apple: no better (ico 0)
+samsung: kept png 144
+sony: no better (ico 0)
+microsoft: kept png 128
+netflix: no better (png 64)
+shell: kept png 180
+totalenergies: no better (png 16)
+bp: touch svg 200 <- https://www.bp.com/icon.svg
+exxonmobil: no better (ico 0)
+mcdonalds: no better (ico 0)
+dominos: kept png 144
+nestle: kept png 256
+unilever: kept png 180
+costco: no better (ico 0)
+nike: kept png 192
+inditex: no better (png 100)
+walmart: no better (ico 0)
+target: kept png 180
+visa: no better (ico 0)
+mastercard: kept png 180
+amex: no better (none)
+google: kept png 144
+meta: no better (ico 0)
+disney: kept png 200
+homedepot: no better (ico 0)
+chevron: kept png 180
+burgerking: no better (ico 0)
+kfc: kept png 180
+chipotle: kept png 192
+intel: no better (ico 0)
+nvidia: no better (ico 0)
+spotify: no better (none)
+airbnb: kept png 240
+lyft: kept png 150
+doordash: kept png 256
+ibm: kept png 256
+adidas: no better (ico 0)
+puma: kept png 192
+hm: no better (ico 0)
+volkswagen: kept png 256
+bmw: no better (ico 0)
+mercedes: kept png 180
+audi: kept png 180
+renault: no better (ico 0)
+ferrari: kept png 256
+siemens: kept png 256
+philips: kept png 196
+loreal: no better (none)
+louisvuitton: kept png 180
+gucci: kept png 180
+heineken: kept png 152
+carrefour: no better (ico 0)
+tesco: kept png 180
+vodafone: no better (none)
+orange: kept png 256
+telekom: kept png 256
+lufthansa: no better (ico 0)
+ryanair: kept png 152
+airbus: kept png 256
+sap: kept png 256
+zalando: kept png 180
+allianz: kept png 180
+axa: touch png 100 <- https://www.axa.com/images/logo.png?version=4.21.12
+hsbc: kept png 180
+santander: kept png 192
+hyundai: no better (ico 0)
+kia: touch svg 200 <- https://www.kia.com/etc.clientlibs/settings/wcm/designs/eut/clientlib/resources/rbr/Favicon-Light-180.svg
+nintendo: kept png 180
+lg: kept png 228
+panasonic: no better (ico 0)
+uniqlo: kept png 180
+canon: kept png 180
+xiaomi: kept png 196
+shopify: kept png 144
+lululemon: kept png 180
+delta: no better (ico 0)
+americanairlines: no better (ico 0)
+pg: kept png 256
+kelloggs: kept png 256
+chevrolet: kept png 180
+jeep: no better (ico 0)
+caterpillar: kept png 256
+johndeere: no better (ico 0)
+boeing: no better (ico 0)
+dell: no better (ico 0)
+hp: no better (none)
+cisco: no better (ico 0)
+oracle: no better (ico 0)
+adobe: kept png 180
+coinbase: kept png 228
+bankofamerica: kept png 192
+chase: touch jpg 152 <- https://www.chase.com/etc/designs/chase-ux/favicon-152.png
+wellsfargo: kept png 192
+cvs: no better (png 32)
+walgreens: no better (png 32)
+lowes: no better (ico 0)
+wendys: kept png 152
+7eleven: no better (ico 0)
+ericsson: kept png 180
+nokia: kept png 180
+bic: kept png 256
+repsol: no better (png 96)
+airfrance: no better (png 120)
+easyjet: no better (ico 0)
+ing: no better (ico 0)
+bnp: touch png 180 <- https://cdn-group.bnpparibas.com/build/images/apple-touch-icon.png
+deutschebank: kept png 180
+barclays: kept png 180
+peugeot: kept png 180
+fiat: kept png 192
+continental: no better (png 32)
+nissan: kept png 180
+suzuki: no better (none)
+harley: kept png 152
+tencent: kept png 192
+toshiba: kept png 192
+honda: kept png 180
+danone: no better (ico 0)
+michelin: no better (none)
+alibaba: kept png 192
+byd: no better (ico 0)
+robinhood: kept png 152
+volvo: kept png 192
+porsche: kept png 180
+marriott: no better (ico 0)
+colgate: kept png 180
+heinz: no better (none)
+budweiser: kept png 256
+ubs: kept png 192
+hilton: kept png 144

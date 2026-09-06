@@ -1,0 +1,960 @@
+@import "tailwindcss";
+
+/*
+  SPOT — sky theme.
+  A bright sky, soft clouds, frosted glass cards, real brand logos, bold type.
+  Full light palette on bare :root; dark mode (dusk) only redefines.
+*/
+:root {
+  /* near-black, hairline borders, one accent: the 21st.dev / motion.dev register */
+  --bg: #0a0a0b;
+  --bg-2: #151517;
+  --surface: #121214;
+  --surface-strong: #1a1a1d;
+  --surface-border: rgba(255, 255, 255, 0.08);
+  --pill-bg: rgba(18, 18, 20, 0.92);
+  --pill-border: rgba(255, 255, 255, 0.1);
+  --pill-text: #f5f5f7;
+  --pill-muted: #8b8b94;
+  --pill-active: rgba(255, 255, 255, 0.1);
+  --pill-active-text: #ffffff;
+  --text: #f5f5f7;
+  --text-2: #c2c2c9;
+  --muted: #8b8b94;
+  --accent: #fff312;
+  --accent-ink: #e6db2a;
+  --accent-2: #d4d4dc;
+  --green: #22c55e;
+  --gold: #f2a91d;
+  --danger: #ef4444;
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 24px 48px rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 10px 24px rgba(0, 0, 0, 0.4);
+  --radius: 18px;
+  --radius-sm: 12px;
+  --map-land: #1d1d21;
+  --map-stroke: rgba(255, 255, 255, 0.16);
+
+  --font-display: var(--font-geist), "Segoe UI", system-ui, sans-serif;
+  --font-accent: var(--font-geist), system-ui, sans-serif;
+  --font-body: var(--font-geist), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), "SF Mono", Menlo, monospace;
+  --font-hand: var(--font-display);
+
+  --ease-set: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-press: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-lin: linear;
+
+  /* legacy tokens still referenced by a few components */
+  --sky-1: var(--bg);
+  --sky-2: var(--bg);
+  --sky-3: var(--bg);
+  --paper: var(--bg);
+  --paper-2: var(--surface);
+  --paper-worn: var(--bg-2);
+  --card: var(--surface-strong);
+  --ink: var(--text);
+  --ink-blue: var(--accent-2);
+  --ink-2: var(--text-2);
+  --ink-3: var(--muted);
+  --pencil: var(--muted);
+  --stamp-red: var(--danger);
+  --stamp-green: var(--green);
+  --gilt: var(--gold);
+  --rule: rgba(255, 255, 255, 0.1);
+  --rule-hair: rgba(255, 255, 255, 0.07);
+  --grid: rgba(255, 255, 255, 0.05);
+  color-scheme: dark;
+}
+
+/* ─── The ground: near-black with a faint cool glow at the top. One fixed layer, painted once. ─── */
+html {
+  background: var(--bg);
+}
+body {
+  margin: 0;
+  min-height: 100dvh;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  background: var(--bg);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(55% 38% at 50% -6%, rgba(120, 119, 198, 0.22), transparent 70%),
+    radial-gradient(40% 30% at 85% 10%, rgba(255, 243, 18, 0.05), transparent 70%);
+}
+main {
+  position: relative;
+  z-index: 1;
+}
+
+* {
+  box-sizing: border-box;
+}
+*:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px var(--surface-strong),
+    0 0 0 6px var(--accent-2);
+}
+a {
+  color: var(--accent-2);
+  text-decoration: none;
+}
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.04;
+  margin: 0;
+  letter-spacing: -0.035em;
+}
+.accent,
+em.accent {
+  font-style: normal;
+  color: var(--accent);
+}
+h1 {
+  font-size: clamp(2rem, 4.6vw, 3.2rem);
+}
+p {
+  margin: 0;
+}
+button {
+  font: inherit;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
+::selection {
+  background: var(--accent);
+  color: #0a0a0b;
+}
+
+/* ─── Type utilities ─── */
+.hand {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  font-size: 1.5rem;
+  line-height: 1.1;
+}
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.78rem;
+  letter-spacing: 0;
+}
+.legend {
+  color: var(--muted);
+}
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+.lede {
+  font-size: 1.15rem;
+  line-height: 1.5;
+  color: var(--text-2);
+  max-width: 56ch;
+}
+.rule {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 0;
+}
+.rule-full,
+.rule-double {
+  border-top: 1px solid var(--rule);
+}
+
+/* ─── A page ─── */
+.page {
+  position: relative;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 7rem;
+}
+@media (min-width: 640px) {
+  .page {
+    padding: 2.6rem 2.5rem 6rem;
+  }
+}
+.carnet-page {
+  max-width: 1280px;
+}
+.dog-ear::before,
+.dog-ear::after {
+  display: none;
+}
+.page-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 0.8rem 1.5rem;
+  margin-bottom: 1rem;
+}
+.page-head .hand {
+  font-size: clamp(1.7rem, 3.6vw, 2.4rem);
+}
+
+/* ─── Glass ─── */
+.glass,
+.pinned,
+.worldmap,
+.slot-frame,
+.ticker,
+.register table {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+}
+
+/* ─── Buttons ─── */
+.btn {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  font-size: 0.95rem;
+  color: #0a0a0b;
+  background: var(--accent);
+  border: none;
+  border-radius: 999px;
+  padding: 0.9rem 1.7rem;
+  box-shadow: none;
+  transition:
+    transform 160ms var(--ease-set),
+    box-shadow 160ms var(--ease-set),
+    filter 160ms;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-transform: none;
+}
+.btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+.btn:active {
+  transform: translateY(0);
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+  transform: none;
+}
+.btn-secondary {
+  background: var(--surface-strong);
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+}
+.btn-secondary:hover {
+  border-color: rgba(255, 255, 255, 0.24);
+  box-shadow: none;
+}
+.btn-secondary:hover {
+  box-shadow: var(--shadow);
+  filter: none;
+}
+.btn-quiet {
+  background: none;
+  border: none;
+  color: var(--text);
+  padding: 0.35rem 0.1rem;
+  box-shadow: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: var(--font-display);
+  position: relative;
+  cursor: pointer;
+  border-radius: 0;
+}
+.btn-quiet:hover,
+.btn-quiet:active {
+  transform: none;
+  box-shadow: none;
+  filter: none;
+  color: var(--accent-2);
+}
+.btn-quiet:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.btn-quiet::after,
+.wobble-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  opacity: 0.35;
+  transition: opacity 120ms;
+}
+.btn-quiet:hover::after,
+.wobble-underline:hover::after {
+  opacity: 1;
+}
+.wobble-underline {
+  position: relative;
+  font-weight: 600;
+}
+
+/* ─── Fields ─── */
+.field {
+  background: var(--surface-strong);
+  border: 1px solid var(--surface-border);
+  border-radius: 999px;
+  padding: 0.45rem 0.9rem;
+  font-family: var(--font-body);
+  color: var(--text);
+  font-size: 0.95rem;
+  outline: none;
+  box-shadow: none;
+}
+
+/* ─── Badges (statuses) ─── */
+.stamp {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background: var(--danger);
+  border: 0;
+  border-radius: 999px;
+  padding: 0.28rem 0.7rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+.stamp-green {
+  background: var(--green);
+  color: #06210f;
+}
+.stamp-across {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-8deg);
+  font-size: 1.1rem;
+  padding: 0.6rem 1.3rem;
+}
+@keyframes stamp-drop {
+  0% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.stamp-drop {
+  animation: stamp-drop 220ms var(--ease-set) both;
+}
+
+/* ─── Brand logo, transparent, no box ─── */
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+.brand-logo img {
+  filter: none;
+}
+.brand-logo-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+/* dark marks get a soft white halo, so nothing is inverted or recoloured */
+.brand-logo-dark img {
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 3px rgba(255, 255, 255, 0.35));
+}
+
+/* ─── Toasts / pinned notes ─── */
+.pinned {
+  position: relative;
+  padding: 0.9rem 1.1rem 0.9rem 1.5rem;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+  transform: none;
+}
+.pin {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+.pinned .hand {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text) !important;
+}
+
+/* ─── Progress ─── */
+.ruler {
+  position: relative;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--surface-strong);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+.ruler-cursor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: var(--progress, 0%);
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), #7ee2a5);
+  transition: width 400ms var(--ease-set);
+}
+
+/* ─── Loading ─── */
+.loading-frame rect {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: trace 1.4s var(--ease-lin) infinite;
+}
+@keyframes trace {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ─── Motion ─── */
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.settle {
+  animation: settle 280ms var(--ease-set) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 150ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 120ms !important;
+  }
+}
+
+/* ─── The field wall ─── */
+.wall {
+  display: grid;
+  gap: 1.6rem 1.2rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (min-width: 640px) {
+  .wall {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .wall {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* ─── Ledger ─── */
+.register {
+  overflow-x: auto;
+  border-radius: var(--radius);
+}
+.register table {
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 640px;
+  width: 100%;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.register th,
+.register td {
+  text-align: right;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--rule-hair);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.register th:first-child,
+.register td:first-child {
+  text-align: left;
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+.register th {
+  color: var(--muted);
+  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.register tbody tr:last-child td {
+  border-bottom: 0;
+}
+.register tbody tr:hover td {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* ─── Slots of the hunt ─── */
+.slots {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem;
+}
+@media (min-width: 640px) {
+  .slots {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .slots {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+.slot {
+  display: block;
+  color: inherit;
+}
+.slot-frame {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius);
+  display: grid;
+  place-items: center;
+  box-shadow: none;
+  transition:
+    box-shadow 220ms var(--ease-set),
+    transform 220ms var(--ease-set);
+}
+.slot:hover .slot-frame {
+  box-shadow: var(--shadow);
+  transform: translateY(-3px);
+}
+.slot-inner {
+  display: grid;
+  justify-items: center;
+  gap: 0.8rem;
+}
+.slot-hint {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.62rem;
+  color: var(--accent-ink);
+}
+.slot-caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+  padding: 0 0.3rem;
+}
+.slot-caption .hand {
+  font-size: 1.05rem;
+}
+.coeff {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  background: var(--surface-strong);
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--surface-border);
+  box-shadow: none;
+}
+
+/* ─── The map ─── */
+.worldmap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+@keyframes halo {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+.map-pin-halo {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.map-pin text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  paint-order: stroke;
+  stroke: var(--surface-strong);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+
+/* ─── Status line ─── */
+.status-line {
+  position: static;
+  display: table;
+  margin: 2.5rem auto 0;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  box-shadow: none;
+  font-size: 0.72rem;
+  text-align: center;
+  z-index: 5;
+  white-space: nowrap;
+  max-width: calc(100vw - 2rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+body:has([data-hors-zone]) .nav {
+  display: none;
+}
+
+/* ─── Entrance: visible at first paint, then settles (compositor animation) ─── */
+.reveal {
+  animation: settle 480ms var(--ease-set) both;
+}
+.stagger > * {
+  animation: settle 480ms var(--ease-set) both;
+  animation-delay: calc(var(--stagger-delay, 0.05s) + var(--i, 0) * var(--stagger-gap, 0.06s));
+}
+.stagger > :nth-child(1) { --i: 0; }
+.stagger > :nth-child(2) { --i: 1; }
+.stagger > :nth-child(3) { --i: 2; }
+.stagger > :nth-child(4) { --i: 3; }
+.stagger > :nth-child(5) { --i: 4; }
+.stagger > :nth-child(6) { --i: 5; }
+.stagger > :nth-child(7) { --i: 6; }
+.stagger > :nth-child(8) { --i: 7; }
+.stagger > :nth-child(9) { --i: 8; }
+.stagger > :nth-child(10) { --i: 9; }
+.stagger > :nth-child(11) { --i: 10; }
+.stagger > :nth-child(12) { --i: 11; }
+.stagger > :nth-child(n + 13) { --i: 12; }
+@keyframes settle {
+  from {
+    opacity: 0.001;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ─── Brand as a profile picture: a rounded white tile, the icon inside, always square ─── */
+.brand-pp {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+.brand-pp img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 9%;
+  display: block;
+  background: #ffffff;
+}
+.brand-pp-letter {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: #0a0a0b;
+}
+
+/* ─── The live map: MapLibre in the dark register, pins as yellow dots, a street-level dive on click ─── */
+.livemap-wrap {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--surface-border);
+  background: #0e0e10;
+}
+.livemap-fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  transition: opacity 500ms var(--ease-set);
+  pointer-events: none;
+}
+.livemap-fallback-off {
+  opacity: 0;
+}
+.livemap-live {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 500ms var(--ease-set);
+}
+.livemap-live-on {
+  opacity: 1;
+}
+.livemap,
+.livemap-canvas {
+  position: absolute;
+  inset: 0;
+}
+.livemap-canvas .maplibregl-canvas {
+  outline: none;
+}
+.livemap-pin {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: none;
+  border: 0;
+  padding: 4px 6px 4px 0;
+  cursor: pointer;
+  color: #f5f5f7;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 12px;
+  transform: translateX(-9px);
+}
+.livemap-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 5px rgba(255, 243, 18, 0.18);
+  transition: box-shadow 160ms;
+}
+.livemap-pin-hot .livemap-dot {
+  box-shadow: 0 0 0 8px rgba(255, 243, 18, 0.22);
+}
+.livemap-pin:hover .livemap-dot {
+  box-shadow: 0 0 0 10px rgba(255, 243, 18, 0.3);
+}
+.livemap-label {
+  text-shadow:
+    0 1px 2px #000,
+    0 0 6px #000;
+  white-space: nowrap;
+}
+.livemap-ui {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  z-index: 3;
+}
+.livemap-reset {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--text);
+  background: rgba(18, 18, 20, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  padding: 0.45rem 0.85rem;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    opacity 200ms,
+    transform 200ms;
+  pointer-events: none;
+}
+.livemap-reset-on {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.livemap-hint {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  z-index: 3;
+  margin: 0;
+  font-size: 0.66rem;
+  color: var(--muted);
+  background: rgba(14, 14, 16, 0.8);
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  pointer-events: none;
+}
+.maplibregl-ctrl-group {
+  background: rgba(18, 18, 20, 0.92) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: none !important;
+}
+.maplibregl-ctrl-group button {
+  filter: invert(1) brightness(1.6);
+}
+.maplibregl-ctrl-group button + button {
+  border-top-color: rgba(0, 0, 0, 0.5) !important;
+}
+.maplibregl-ctrl-attrib {
+  background: rgba(14, 14, 16, 0.8) !important;
+  color: var(--muted) !important;
+  font-size: 10px;
+}
+.maplibregl-ctrl-attrib a {
+  color: var(--muted) !important;
+}
+.maplibregl-cooperative-gesture-screen {
+  background: rgba(10, 10, 11, 0.7);
+  color: var(--text);
+  font-family: var(--font-body);
+}
+@media (max-width: 639px) {
+  .livemap-hint {
+    display: none;
+  }
+}
+/* one click arms the map for the wheel; until then a quiet invitation sits on it */
+.livemap-arm {
+  position: absolute;
+  left: 50%;
+  top: 14px;
+  transform: translateX(-50%);
+  z-index: 3;
+  pointer-events: none;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: var(--text);
+  background: rgba(18, 18, 20, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  padding: 0.4rem 0.85rem;
+  transition:
+    opacity 200ms,
+    transform 200ms;
+}
+.livemap-arm-off {
+  opacity: 0;
+  transform: translate(-50%, -6px);
+}
+@media (hover: none) {
+  .livemap-arm {
+    display: none;
+  }
+}
+/* one icon per sighting on the map, fanned around the city point; the city named once */
+.livemap-pin {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  background: #ffffff;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 2px #0e0e10,
+    0 2px 8px rgba(0, 0, 0, 0.6);
+  transform: none;
+  transition:
+    transform 160ms var(--ease-set),
+    box-shadow 160ms;
+}
+.livemap-pin img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  padding: 2px;
+  display: block;
+}
+.livemap-pin-hot {
+  box-shadow:
+    0 0 0 2px #0e0e10,
+    0 0 0 4px var(--accent);
+}
+.livemap-pin:hover {
+  transform: scale(1.25);
+  z-index: 5;
+  box-shadow:
+    0 0 0 2px #0e0e10,
+    0 0 0 4px var(--accent),
+    0 4px 14px rgba(0, 0, 0, 0.7);
+}
+.livemap-letter {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 12px;
+  color: #0a0a0b;
+}
+.livemap-city {
+  background: rgba(14, 14, 16, 0.75);
+  border: 0;
+  border-radius: 999px;
+  padding: 2px 8px;
+  cursor: pointer;
+  color: #f5f5f7;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.livemap-dot,
+.livemap-label {
+  display: none;
+}

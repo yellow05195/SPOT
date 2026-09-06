@@ -1,0 +1,202 @@
+/* The sighting card: frosted glass, rounded, the photo edge to edge, the real logo, a status badge. */
+.fiche {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  min-width: 0;
+  max-width: min(360px, 100%);
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius);
+  padding: 0.6rem 0.6rem 0.9rem;
+  box-shadow: none;
+}
+.fiche-gilt {
+  box-shadow: 0 0 0 1px var(--gold);
+}
+.fiche-sm {
+  max-width: 220px;
+  padding: 0.45rem 0.45rem 0.7rem;
+}
+.fiche-lg {
+  max-width: min(460px, 100%);
+}
+.fiche-photo {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  flex: none;
+  border-radius: calc(var(--radius) - 8px);
+  overflow: hidden;
+  background: var(--bg-2);
+}
+.fiche-sm .fiche-photo {
+  border-radius: calc(var(--radius-sm) - 4px);
+}
+.fiche-img,
+.fiche-photo-empty {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.fiche-photo-empty {
+  background:
+    repeating-linear-gradient(135deg, transparent 0 8px, rgba(255, 255, 255, 0.04) 8px 9px),
+    var(--bg-2);
+}
+.fiche-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.28) 100%);
+  pointer-events: none;
+}
+.fiche-caption {
+  padding: 0.75rem 0.4rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+  text-align: left;
+}
+.fiche-sm .fiche-caption {
+  padding: 0.55rem 0.2rem 0;
+}
+.fiche-name {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-width: 0;
+  min-height: 40px;
+}
+.fiche-sm .fiche-name {
+  min-height: 34px;
+  gap: 0.5rem;
+}
+.fiche .manuscrit {
+  max-width: 100%;
+}
+.fiche .hand-name {
+  display: inline-block;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fiche .hand {
+  font-size: 1.15rem;
+}
+.fiche-sm .hand {
+  font-size: 0.95rem;
+}
+.fiche-lg .hand {
+  font-size: 1.35rem;
+}
+.fiche-line {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  color: var(--muted);
+}
+.fiche-sm .fiche-line,
+.fiche-sm .fiche-foot .mono {
+  font-size: 0.66rem;
+}
+.fiche-foot {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.5rem;
+  gap: 0.5rem;
+}
+.fiche-foot .mono {
+  white-space: nowrap;
+}
+.fiche-sm .stamp {
+  font-size: 0.6rem;
+  padding: 0.2rem 0.5rem;
+}
+.fiche-logo-float {
+  display: none !important;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.88);
+  border-radius: 999px;
+  padding: 6px 10px;
+  box-shadow: var(--shadow-sm);
+  display: inline-flex;
+}
+.fiche-sm .fiche-logo-float {
+  left: 6px;
+  top: 6px;
+  padding: 4px 7px;
+}
+
+/* Mounting animation: the card rises, the photo develops, the logo and name arrive, the badge lands. */
+@keyframes paper-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes photo-set {
+  from {
+    opacity: 0;
+    filter: saturate(0) brightness(1.4);
+  }
+  to {
+    opacity: 1;
+    filter: none;
+  }
+}
+@keyframes write {
+  from {
+    opacity: 0;
+    transform: translateX(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fiche-animate {
+  animation: paper-in 360ms var(--ease-set) both;
+}
+.fiche-animate .fiche-img {
+  animation: photo-set 700ms var(--ease-set) 200ms both;
+}
+.fiche-animate .fiche-logo-float,
+.hand-write {
+  animation: write 420ms var(--ease-set) 900ms both;
+}
+.fiche-animate .stamp-drop {
+  animation-delay: 1400ms;
+}
+a .fiche,
+button .fiche {
+  transition:
+    transform 220ms var(--ease-set),
+    box-shadow 220ms var(--ease-set);
+}
+a:hover .fiche,
+button:hover .fiche {
+  transform: translateY(-4px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .fiche-animate,
+  .fiche-animate .fiche-img,
+  .fiche-animate .fiche-logo-float,
+  .hand-write,
+  .fiche-animate .stamp-drop {
+    animation: paper-in 150ms var(--ease-set) both;
+    animation-delay: 0ms;
+  }
+}

@@ -1,0 +1,59 @@
+# The whole back end on one machine: database, quotas store, photo storage, claim server, keeper.
+# The PWA (app/) is deployed separately (Vercel or any Node host) and points at the server's public URL.
+#
+#   cp server/.env.example server/.env && cp keeper/.env.example keeper/.env   # fill them in
+#   docker compose up -d --build
+#   docker compose exec postgres psql -U spot -d spot -f /migrations/0000_init.sql   # first run only
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: spot
+      POSTGRES_PASSWORD: spot
+      POSTGRES_DB: spot
+    volumes: ["pg:/var/lib/postgresql/data", "./server/drizzle:/migrations:ro"]
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U spot"], interval: 5s, retries: 10 }
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes: ["redis:/data"]
+
+  minio:
+    image: minio/minio
+    command: server /data --console-address ":9001"
+    environment: { MINIO_ROOT_USER: spot, MINIO_ROOT_PASSWORD: spotspot123 }
+    ports: ["9000:9000", "9001:9001"]
+    volumes: ["minio:/data"]
+
+  server:
+    build: { context: ., dockerfile: server/Dockerfile }
+    env_file: server/.env
+    environment:
+      DATABASE_URL: postgres://spot:spot@postgres:5432/spot
+      REDIS_URL: redis://redis:6379
+      S3_ENDPOINT: http://minio:9000
+      MODELS_DIR: /app/models
+    volumes: ["./server/models:/app/models:ro"]
+    ports: ["3001:3001"]
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_started }
+      minio: { condition: service_started }
+    restart: unless-stopped
+
+  keeper:
+    build: { context: ., dockerfile: keeper/Dockerfile }
+    env_file: keeper/.env
+    environment:
+      DATABASE_URL: postgres://spot:spot@postgres:5432/spot
+    volumes: ["keeper-state:/app/state"]
+    depends_on:
+      postgres: { condition: service_healthy }
+    restart: unless-stopped
+
+volumes:
+  pg:
+  redis:
+  minio:
+  keeper-state:

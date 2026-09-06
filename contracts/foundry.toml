@@ -1,0 +1,40 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+solc_version = "0.8.26"
+evm_version = "cancun"
+optimizer = true
+optimizer_runs = 200
+via_ir = true
+verbosity = 2
+fs_permissions = [{ access = "read", path = "./" }]
+
+# Spec 5.2 : tests d'invariance, minimum 10 000 runs.
+[profile.default.invariant]
+runs = 10000
+depth = 24
+fail_on_revert = false
+
+[profile.default.fuzz]
+runs = 512
+
+# Profil rapide pour l'iteration locale : FOUNDRY_PROFILE=quick forge test
+[profile.quick]
+[profile.quick.invariant]
+runs = 256
+depth = 16
+[profile.quick.fuzz]
+runs = 64
+
+[rpc_endpoints]
+robinhood = "https://rpc.mainnet.chain.robinhood.com"
+
+[fmt]
+line_length = 110
+tab_width = 4
+
+[lint]
+# Les notes de style (immutables en SCREAMING_SNAKE, mixedCase des variables) sont volontairement
+# ignorees : les noms suivent la spec (`signer`, `registry`, `sealed_`, ...).
+exclude_lints = ["screaming-snake-case-immutable", "mixed-case-variable", "mixed-case-function", "unwrapped-modifier-logic", "asm-keccak256"]

@@ -1,0 +1,941 @@
+{
+ "1": {
+  "name": "Amazon",
+  "sector": 1,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "2": {
+  "name": "UPS",
+  "sector": 1,
+  "prompts": 10,
+  "source": "real photos",
+  "kind": "image",
+  "images": 15
+ },
+ "3": {
+  "name": "DHL",
+  "sector": 1,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "4": {
+  "name": "FedEx",
+  "sector": 1,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "5": {
+  "name": "Maersk",
+  "sector": 1,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "6": {
+  "name": "Coca-Cola",
+  "sector": 2,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "7": {
+  "name": "PepsiCo",
+  "sector": 2,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "8": {
+  "name": "Celsius",
+  "sector": 2,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "9": {
+  "name": "Starbucks",
+  "sector": 2,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "10": {
+  "name": "Tesla",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "11": {
+  "name": "Ford",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "12": {
+  "name": "Uber",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "13": {
+  "name": "Toyota",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "14": {
+  "name": "Apple",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "15": {
+  "name": "Samsung",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "16": {
+  "name": "Netflix",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "17": {
+  "name": "Shell",
+  "sector": 5,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "18": {
+  "name": "TotalEnergies",
+  "sector": 5,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "19": {
+  "name": "McDonald's",
+  "sector": 6,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "20": {
+  "name": "Nike",
+  "sector": 7,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "21": {
+  "name": "Walmart",
+  "sector": 7,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "22": {
+  "name": "Target",
+  "sector": 7,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "23": {
+  "name": "Visa",
+  "sector": 8,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "24": {
+  "name": "Mastercard",
+  "sector": 8,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "25": {
+  "name": "American Express",
+  "sector": 8,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "26": {
+  "name": "Google",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "27": {
+  "name": "Meta",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "28": {
+  "name": "Disney",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "29": {
+  "name": "Home Depot",
+  "sector": 7,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "30": {
+  "name": "Chevron",
+  "sector": 5,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "31": {
+  "name": "Burger King",
+  "sector": 6,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "32": {
+  "name": "KFC",
+  "sector": 6,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "33": {
+  "name": "Chipotle",
+  "sector": 6,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "34": {
+  "name": "Intel",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "35": {
+  "name": "Nvidia",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "36": {
+  "name": "Spotify",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "37": {
+  "name": "Airbnb",
+  "sector": 11,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "38": {
+  "name": "Lyft",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "39": {
+  "name": "DoorDash",
+  "sector": 6,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "40": {
+  "name": "IBM",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "41": {
+  "name": "Adidas",
+  "sector": 9,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "42": {
+  "name": "Puma",
+  "sector": 9,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "43": {
+  "name": "H&M",
+  "sector": 9,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "44": {
+  "name": "Volkswagen",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "45": {
+  "name": "BMW",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "46": {
+  "name": "Mercedes-Benz",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "47": {
+  "name": "Audi",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "48": {
+  "name": "Renault",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "49": {
+  "name": "Ferrari",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "50": {
+  "name": "Siemens",
+  "sector": 12,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "51": {
+  "name": "Philips",
+  "sector": 10,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "52": {
+  "name": "L'Oréal",
+  "sector": 9,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "53": {
+  "name": "Louis Vuitton",
+  "sector": 9,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "54": {
+  "name": "Gucci",
+  "sector": 9,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "55": {
+  "name": "Heineken",
+  "sector": 2,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "56": {
+  "name": "Carrefour",
+  "sector": 7,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "57": {
+  "name": "Tesco",
+  "sector": 7,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "58": {
+  "name": "Vodafone",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "59": {
+  "name": "Orange",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "60": {
+  "name": "Deutsche Telekom",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "61": {
+  "name": "Lufthansa",
+  "sector": 11,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "62": {
+  "name": "Ryanair",
+  "sector": 11,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "63": {
+  "name": "Airbus",
+  "sector": 12,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "64": {
+  "name": "SAP",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "65": {
+  "name": "Zalando",
+  "sector": 7,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "66": {
+  "name": "Allianz",
+  "sector": 8,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "67": {
+  "name": "AXA",
+  "sector": 8,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "68": {
+  "name": "HSBC",
+  "sector": 8,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "69": {
+  "name": "Santander",
+  "sector": 8,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "70": {
+  "name": "Hyundai",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "71": {
+  "name": "Kia",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "72": {
+  "name": "Nintendo",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "73": {
+  "name": "LG",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "74": {
+  "name": "Panasonic",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "75": {
+  "name": "Uniqlo",
+  "sector": 9,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "76": {
+  "name": "Canon",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "77": {
+  "name": "Xiaomi",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "78": {
+  "name": "Shopify",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "79": {
+  "name": "Lululemon",
+  "sector": 9,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "80": {
+  "name": "Delta",
+  "sector": 11,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "81": {
+  "name": "American Airlines",
+  "sector": 11,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "82": {
+  "name": "Procter & Gamble",
+  "sector": 10,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "83": {
+  "name": "Kellogg's",
+  "sector": 6,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "84": {
+  "name": "Chevrolet",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "85": {
+  "name": "Jeep",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "86": {
+  "name": "Caterpillar",
+  "sector": 12,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "87": {
+  "name": "John Deere",
+  "sector": 12,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "88": {
+  "name": "Boeing",
+  "sector": 12,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "89": {
+  "name": "Dell",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "90": {
+  "name": "HP",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "91": {
+  "name": "Cisco",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "92": {
+  "name": "Oracle",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "93": {
+  "name": "Adobe",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "94": {
+  "name": "Coinbase",
+  "sector": 8,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "95": {
+  "name": "Bank of America",
+  "sector": 8,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "96": {
+  "name": "Chase",
+  "sector": 8,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "97": {
+  "name": "Wells Fargo",
+  "sector": 8,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "98": {
+  "name": "CVS",
+  "sector": 7,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "99": {
+  "name": "Walgreens",
+  "sector": 7,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "100": {
+  "name": "Lowe's",
+  "sector": 7,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "101": {
+  "name": "Wendy's",
+  "sector": 6,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "102": {
+  "name": "7-Eleven",
+  "sector": 7,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "103": {
+  "name": "Ericsson",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "104": {
+  "name": "Nokia",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "105": {
+  "name": "BIC",
+  "sector": 10,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "106": {
+  "name": "Repsol",
+  "sector": 5,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "107": {
+  "name": "Air France",
+  "sector": 11,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "108": {
+  "name": "easyJet",
+  "sector": 11,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "109": {
+  "name": "ING",
+  "sector": 8,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "110": {
+  "name": "BNP Paribas",
+  "sector": 8,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "111": {
+  "name": "Deutsche Bank",
+  "sector": 8,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "112": {
+  "name": "Barclays",
+  "sector": 8,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "113": {
+  "name": "Peugeot",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "114": {
+  "name": "Fiat",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "115": {
+  "name": "Continental",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "116": {
+  "name": "Nissan",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "117": {
+  "name": "Suzuki",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "118": {
+  "name": "Harley-Davidson",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "119": {
+  "name": "Tencent",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "120": {
+  "name": "Toshiba",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "121": {
+  "name": "Honda",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "122": {
+  "name": "Danone",
+  "sector": 6,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "123": {
+  "name": "Michelin",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "124": {
+  "name": "Alibaba",
+  "sector": 4,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "125": {
+  "name": "BYD",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "126": {
+  "name": "Robinhood",
+  "sector": 8,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "127": {
+  "name": "Volvo",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "128": {
+  "name": "Porsche",
+  "sector": 3,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "129": {
+  "name": "Marriott",
+  "sector": 11,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "130": {
+  "name": "Colgate",
+  "sector": 10,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "131": {
+  "name": "Heinz",
+  "sector": 6,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "132": {
+  "name": "Budweiser",
+  "sector": 2,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "133": {
+  "name": "UBS",
+  "sector": 8,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ },
+ "134": {
+  "name": "Hilton",
+  "sector": 11,
+  "prompts": 10,
+  "source": "zero-shot text prompts",
+  "kind": "text"
+ }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "@spot/keeper",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "SPOT — keeper : inventaire (5 min), rareté (23:50 UTC), chasse du jour (00:00 UTC)",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js",
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "once:inventory": "tsx src/cli.ts inventory",
+    "once:rarity": "tsx src/cli.ts rarity",
+    "once:hunt": "tsx src/cli.ts hunt",
+    "commit-hunts": "tsx src/cli.ts commit-hunts"
+  },
+  "dependencies": {
+    "node-cron": "^4.2.1",
+    "pino": "^9.9.0",
+    "postgres": "^3.4.7",
+    "viem": "^2.56.3",
+    "zod": "^4.1.11"
+  },
+  "devDependencies": {
+    "@types/node": "^24.5.2",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}
