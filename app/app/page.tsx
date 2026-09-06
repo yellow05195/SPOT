@@ -41,7 +41,13 @@ export default async function HuntPage() {
         </Reveal>
         <hr className="rule" style={{ margin: "0.6rem 0 1.6rem" }} />
 
-        {chasse.budgetExhausted && (
+        {chasse.fragmentsEnabled === false && (
+          <Reveal delay={0.1} style={{ marginBottom: "1.2rem" }}>
+            <p className="mono legend" style={{ fontSize: ".82rem" }}>fragments open soon, cards and plates are live</p>
+          </Reveal>
+        )}
+
+        {chasse.budgetExhausted && chasse.fragmentsEnabled !== false && (
           <Reveal delay={0.1} style={{ marginBottom: "1.5rem" }}>
             <PinnedNote tone="green">today&apos;s budget is spent, you still earn the card, not the fragment. Rearms in {duree(chasse.resetInSeconds)}.</PinnedNote>
           </Reveal>

@@ -10,9 +10,8 @@
   "name": "UPS",
   "sector": 1,
   "prompts": 10,
-  "source": "real photos",
-  "kind": "image",
-  "images": 15
+  "source": "zero-shot text prompts",
+  "kind": "text"
  },
  "3": {
   "name": "DHL",
@@ -67,8 +66,9 @@
   "name": "Tesla",
   "sector": 3,
   "prompts": 10,
-  "source": "zero-shot text prompts",
-  "kind": "text"
+  "source": "real photos",
+  "kind": "image",
+  "images": 15
  },
  "11": {
   "name": "Ford",

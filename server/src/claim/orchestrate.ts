@@ -38,7 +38,7 @@ export interface PriseDeps {
   signer: VoucherSigner;
   domain: TypedDataDomain;
   nonces: NonceSource;
-  config: { dailyBudgetUsd: number; counterAngleRate: number; counterAngleRateHighRisk: number; voucherLifetimeS: number };
+  config: { dailyBudgetUsd: number; counterAngleRate: number; counterAngleRateHighRisk: number; voucherLifetimeS: number; fragmentsEnabled: boolean };
   now: () => number;
   rng: () => number;
   log: { info: (o: object, msg: string) => void; warn: (o: object, msg: string) => void };
@@ -166,6 +166,11 @@ export class PriseService {
     const walletAgeMs = now - account.firstSeen.getTime();
     const regionOk = fragmentsAllowedIn(input.country);
     if (!regionOk) flags.push("fragment indisponible dans ce pays");
+    // « fiches d'abord, fragments ensuite » : la prise est validée et consignée, mais vaut 0 fragment
+    if (!this.d.config.fragmentsEnabled) {
+      noFragment = true;
+      flags.push("fragments en pause");
+    }
     let usd = fragmentsAllowed(risk) && regionOk && !noFragment ? fragmentUsd({ dailyBudgetUsd: this.d.config.dailyBudgetUsd, rarity, inHunt, walletAgeMs, expectedPrisesToday: expected, extraFactor }) : 0;
     let tokenAmount = 0n;
     if (usd > 0) {
@@ -255,6 +260,7 @@ export class PriseService {
       usdValue: paid ? p.usdValue : 0,
       paid,
       regionRestricted: !fragmentsAllowedIn(ctx.country),
+      fragmentsPaused: !this.d.config.fragmentsEnabled,
       inHunt: ctx.inHunt,
       rarity: ctx.rarity,
       imageKey: p.imageKey,

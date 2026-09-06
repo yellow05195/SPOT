@@ -57,6 +57,7 @@ describe("orchestration d'une prise", () => {
   let now: number;
   let embedTable: Map<string, number[]>;
   let escalator: Escalator;
+  let fragmentsEnabled: boolean;
   const signer = new LocalDevSigner("0x00000000000000000000000000000000000000000000000000000000000a11ce");
   const domain = spotDomain(4663, "0x9999999999999999999999999999999999999999");
 
@@ -90,6 +91,7 @@ describe("orchestration d'une prise", () => {
     embedTable = new Map();
     escalator = new NullEscalator();
     rngValue = 0.5;
+    fragmentsEnabled = true;
     now = Date.UTC(2026, 8, 5, 14, 0, 0);
     await repos.brands.upsert({ id: 1, name: "Amazon", symbol: "AMZN", token: AMZN_TOKEN, priceFeed: AMZN_FEED, sector: 1, active: true, rarity: 1 });
     await repos.brands.upsert({ id: 2, name: "Coca-Cola", symbol: "KO", token: getAddress("0x5555555555555555555555555555555555555555"), priceFeed: AMZN_FEED, sector: 2, active: true, rarity: 2 });
@@ -110,7 +112,9 @@ describe("orchestration d'une prise", () => {
       signer,
       domain,
       nonces: new NonceSource(),
-      config: { dailyBudgetUsd: 200, counterAngleRate: 0.08, counterAngleRateHighRisk: 0.4, voucherLifetimeS: 1800 },
+      get config() {
+        return { dailyBudgetUsd: 200, counterAngleRate: 0.08, counterAngleRateHighRisk: 0.4, voucherLifetimeS: 1800, fragmentsEnabled };
+      },
       now: () => now,
       rng: () => rngValue,
       log: { info: () => undefined, warn: () => undefined },
@@ -326,5 +330,31 @@ describe("orchestration d'une prise", () => {
     const unknown = await service.handlePrise(input(BOB, await amazonFrames(2), { country: null }));
     expect(unknown.kind).toBe("valide");
     if (unknown.kind === "valide") expect(unknown.regionRestricted).toBe(true);
+  });
+
+  it("fragments en pause : la fiche est validée et consignée, mais vaut 0 fragment", async () => {
+    fragmentsEnabled = false;
+    const a = await repos.accounts.ensure(ALICE, new Date(now - 3 * 86400_000));
+    a.firstSeen = new Date(now - 3 * 86400_000);
+    const out = await service.handlePrise(input(ALICE, await amazonFrames(1)));
+    expect(out.kind).toBe("valide");
+    if (out.kind !== "valide") return;
+    expect(out.fragmentsPaused).toBe(true);
+    expect(out.regionRestricted).toBe(false);
+    expect(out.paid).toBe(false);
+    expect(out.usdValue).toBe(0);
+    expect(out.voucher.amount).toBe(0n);
+    expect(await verifyVoucher(domain, out.voucher, out.signature, signer.address)).toBe(true);
+    expect(await repos.sightings.byWallet(ALICE, 10, 0)).toHaveLength(1);
+    expect((await repos.stats.get("2026-09-05"))?.sightingsOnly).toBe(1);
+    // le drapeau revient à la normale : le fragment est de nouveau versé
+    fragmentsEnabled = true;
+    now += 21 * 60_000;
+    const back = await service.handlePrise(input(BOB, await amazonFrames(2), { deviceFingerprint: "appareil-2", ip: "10.0.0.2" }));
+    expect(back.kind).toBe("valide");
+    if (back.kind === "valide") {
+      expect(back.fragmentsPaused).toBe(false);
+      expect(back.paid).toBe(true);
+    }
   });
 });

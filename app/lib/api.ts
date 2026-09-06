@@ -20,6 +20,7 @@ export interface ChasseDto {
   sightingsToday: number;
   resetInSeconds: number;
   budgetExhausted: boolean;
+  fragmentsEnabled?: boolean; // absent or true: fragments flow. false: cards and plates only, for now
 }
 export interface FicheDto {
   id: number;

@@ -29,11 +29,14 @@ async function exists(p: string): Promise<boolean> {
 
 /** Câblage : chaque dépendance a une implémentation réelle et une implémentation de secours pour le dev. */
 export async function buildApp() {
-  const cfg = loadConfig();
+  const configWarnings: string[] = [];
+  const cfg = loadConfig(process.env, configWarnings);
   const app = Fastify({ logger: { level: cfg.LOG_LEVEL }, trustProxy: cfg.TRUSTED_PROXY, bodyLimit: 1024 * 1024 });
   await app.register(cors, { origin: true });
   await app.register(multipart);
   const log = app.log;
+  for (const w of configWarnings) log.warn(w);
+  if (!cfg.FRAGMENTS_ENABLED) log.warn("FRAGMENTS_ENABLED=false : fiches d'abord, fragments ensuite (toute prise vaut 0 fragment)");
 
   const repos: Repos = cfg.DATABASE_URL ? PgRepos.connect(cfg.DATABASE_URL) : new MemoryRepos();
   if (!cfg.DATABASE_URL) log.warn("DATABASE_URL absente : dépôts en mémoire (dev uniquement)");
@@ -49,14 +52,17 @@ export async function buildApp() {
 
   let signer: VoucherSigner;
   if (cfg.SIGNER_KMS_KEY_ID) signer = await KmsSigner.create(cfg.SIGNER_KMS_KEY_ID, cfg.AWS_REGION);
-  else if (cfg.SIGNER_DEV_PRIVATE_KEY) signer = new LocalDevSigner(cfg.SIGNER_DEV_PRIVATE_KEY as `0x${string}`);
+  else if (cfg.SIGNER_DEV_PRIVATE_KEY) {
+    signer = new LocalDevSigner(cfg.SIGNER_DEV_PRIVATE_KEY as `0x${string}`);
+    if (cfg.NODE_ENV === "production") log.error("ALLOW_HOT_SIGNER : clé de signer EN CLAIR en production. Dépannage uniquement, à migrer vers SIGNER_KMS_KEY_ID (AWS KMS) sans délai");
+  }
   else throw new Error("SIGNER_KMS_KEY_ID (prod) ou SIGNER_DEV_PRIVATE_KEY (dev) requis");
   log.info({ signer: signer.address }, "signer");
 
   const store: ObjectStore = cfg.S3_BUCKET
     ? new S3ObjectStore(cfg.S3_BUCKET, cfg.S3_PUBLIC_BASE_URL ?? "", cfg.S3_ENDPOINT, cfg.AWS_REGION)
     : cfg.MEDIA_LOCAL_DIR
-      ? new FsObjectStore(cfg.MEDIA_LOCAL_DIR, cfg.S3_PUBLIC_BASE_URL ?? `http://localhost:${cfg.PORT}/media`)
+      ? new FsObjectStore(cfg.MEDIA_LOCAL_DIR, cfg.S3_PUBLIC_BASE_URL ?? cfg.PUBLIC_MEDIA_BASE_URL ?? `http://localhost:${cfg.PORT}/media`)
       : new MemoryObjectStore();
 
   const clipPath = path.join(cfg.MODELS_DIR, "clip-vision.onnx");
@@ -98,7 +104,7 @@ export async function buildApp() {
     signer,
     domain: spotDomain(cfg.CHAIN_ID, vault),
     nonces: new NonceSource(),
-    config: { dailyBudgetUsd: cfg.DAILY_BUDGET_USD, counterAngleRate: cfg.COUNTER_ANGLE_RATE, counterAngleRateHighRisk: cfg.COUNTER_ANGLE_RATE_HIGH_RISK, voucherLifetimeS: cfg.VOUCHER_LIFETIME_S },
+    config: { dailyBudgetUsd: cfg.DAILY_BUDGET_USD, counterAngleRate: cfg.COUNTER_ANGLE_RATE, counterAngleRateHighRisk: cfg.COUNTER_ANGLE_RATE_HIGH_RISK, voucherLifetimeS: cfg.VOUCHER_LIFETIME_S, fragmentsEnabled: cfg.FRAGMENTS_ENABLED },
     now: () => Date.now(),
     rng: Math.random,
     log,
@@ -109,7 +115,8 @@ export async function buildApp() {
     repos,
     chain,
     store,
-    config: { dailyBudgetUsd: cfg.DAILY_BUDGET_USD, chainId: cfg.CHAIN_ID, vault: cfg.VAULT_ADDRESS ? (cfg.VAULT_ADDRESS as Address) : null, explorer: "https://robinhoodchain.blockscout.com" },
+    signer,
+    config: { dailyBudgetUsd: cfg.DAILY_BUDGET_USD, chainId: cfg.CHAIN_ID, vault: cfg.VAULT_ADDRESS ? (cfg.VAULT_ADDRESS as Address) : null, explorer: "https://robinhoodchain.blockscout.com", fragmentsEnabled: cfg.FRAGMENTS_ENABLED },
     now: () => Date.now(),
   });
 

@@ -235,6 +235,7 @@ const chasse: ChasseDto = {
   sightingsToday: 168,
   resetInSeconds: 9 * 3600 + 12 * 60,
   budgetExhausted: false,
+  fragmentsEnabled: true,
 };
 
 const plates: PlateDto[] = [

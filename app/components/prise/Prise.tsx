@@ -22,7 +22,7 @@ import { enqueue, pending, remove } from "./queue";
 
 type Voucher = { wallet: `0x${string}`; brandId: number; amount: string; token: `0x${string}`; nonce: string; issuedAt: string; deadline: string; imageHash: `0x${string}`; cityCode: number };
 type Outcome =
-  | { kind: "valide"; priseId: string; voucher: Voucher; signature: `0x${string}`; usdValue: number; paid: boolean; regionRestricted?: boolean; inHunt: boolean; rarity: number; imageKey: string; imageHash: string }
+  | { kind: "valide"; priseId: string; voucher: Voucher; signature: `0x${string}`; usdValue: number; paid: boolean; regionRestricted?: boolean; fragmentsPaused?: boolean; inHunt: boolean; rarity: number; imageKey: string; imageHash: string }
   | { kind: "contre-angle"; priseId: string; deadlineMs: number }
   | { kind: "rejet"; motif: string; flags: string[] };
 
@@ -66,7 +66,8 @@ function cardOnlyRegion(): boolean {
   return /(?:^|; )spot-region=card-only/.test(document.cookie);
 }
 
-export function Prise({ brand, inHunt, budgetExhausted, resetInSeconds }: { brand: BrandDto; inHunt: boolean; budgetExhausted: boolean; resetInSeconds: number }) {
+/** `fragmentsPaused`: the server is handing out cards and plates but no fragments yet (the "cards first" launch). */
+export function Prise({ brand, inHunt, budgetExhausted, fragmentsPaused = false, resetInSeconds }: { brand: BrandDto; inHunt: boolean; budgetExhausted: boolean; fragmentsPaused?: boolean; resetInSeconds: number }) {
   const account = useAccount();
   const address = account.address ?? (DEMO ? ("0x000000000000000000000000000000000000dEaD" as `0x${string}`) : undefined);
   const isConnected = account.isConnected || DEMO;
@@ -136,9 +137,10 @@ export function Prise({ brand, inHunt, budgetExhausted, resetInSeconds }: { bran
         priseId: "demo",
         voucher: { wallet: (address ?? "0x000000000000000000000000000000000000dEaD") as `0x${string}`, brandId: brand.id, amount: "2100000000000000", token: "0x0000000000000000000000000000000000000001", nonce: "1", issuedAt: "0", deadline: String(Math.floor(Date.now() / 1000) + 1800), imageHash: "0x00", cityCode: 0 },
         signature: "0x00",
-        usdValue: budgetExhausted || cardOnlyRegion() ? 0 : 0.48,
-        paid: !budgetExhausted && !cardOnlyRegion(),
+        usdValue: budgetExhausted || cardOnlyRegion() || fragmentsPaused ? 0 : 0.48,
+        paid: !budgetExhausted && !cardOnlyRegion() && !fragmentsPaused,
         regionRestricted: cardOnlyRegion(),
+        fragmentsPaused,
         inHunt,
         rarity: brand.rarity,
         imageKey: "",
@@ -320,6 +322,7 @@ export function Prise({ brand, inHunt, budgetExhausted, resetInSeconds }: { bran
 
   if (phase === "intro") {
     const sector = SECTEURS[brand.sector] ?? "";
+    const cardOnlyIntro = cardOnly || budgetExhausted || fragmentsPaused;
     return (
       <div className="page prise-intro" style={{ maxWidth: 560 }}>
         <Reveal className="prise-intro-grid">
@@ -336,9 +339,9 @@ export function Prise({ brand, inHunt, budgetExhausted, resetInSeconds }: { bran
           </header>
 
           <section className="prise-intro-card" aria-label="the card you will earn">
-            <Fiche id={0} brand={brand.name} image={null} date={new Date()} city="your street" rarity={brand.rarity} empty stamp={cardOnly || budgetExhausted ? { text: "card only", tone: "green" } : { text: inHunt ? "daily hunt" : "logged", tone: "green" }} />
+            <Fiche id={0} brand={brand.name} image={null} date={new Date()} city="your street" rarity={brand.rarity} empty stamp={cardOnlyIntro ? { text: "card only", tone: "green" } : { text: inHunt ? "daily hunt" : "logged", tone: "green" }} />
             <p className="legend prise-intro-earn">
-              {cardOnly || budgetExhausted ? "This photo earns the card and your pin on the map." : `This photo earns the card and a fragment of ${brand.symbol ?? brand.name}${inHunt ? "" : ", paid at 30 % outside the hunt"}.`}
+              {cardOnlyIntro ? "This photo earns the card and your pin on the map." : `This photo earns the card and a fragment of ${brand.symbol ?? brand.name}${inHunt ? "" : ", paid at 30 % outside the hunt"}.`}
             </p>
           </section>
 
@@ -348,7 +351,8 @@ export function Prise({ brand, inHunt, budgetExhausted, resetInSeconds }: { bran
             <li><span className="mono prise-step-n">3</span><span>Sign the claim in your wallet</span></li>
           </ol>
 
-          {budgetExhausted && <PinnedNote tone="green">today&apos;s budget is spent, you earn the card, not the fragment. Rearms in {duree(resetInSeconds)}.</PinnedNote>}
+          {fragmentsPaused && <PinnedNote tone="green">fragments open soon: for now every photo earns the card and your pin on the map, and counts toward your plates.</PinnedNote>}
+          {budgetExhausted && !fragmentsPaused && <PinnedNote tone="green">today&apos;s budget is spent, you earn the card, not the fragment. Rearms in {duree(resetInSeconds)}.</PinnedNote>}
           {cardOnly && <PinnedNote tone="green">where you are, Stock Token fragments are not offered: your photos earn the card and the pin on the map, not a fragment.</PinnedNote>}
 
           <footer className="prise-intro-foot">
@@ -434,12 +438,13 @@ export function Prise({ brand, inHunt, budgetExhausted, resetInSeconds }: { bran
           city={DEMO ? "New York, US" : "here"}
           rarity={brand.rarity}
           fragment={outcome.paid ? { amount: outcome.voucher.amount, symbol: brand.symbol ?? brand.name } : null}
-          stamp={outcome.paid ? { text: inHunt ? "daily hunt" : "logged", tone: "green", drop: !skip } : outcome.regionRestricted ? { text: "card only", tone: "green", drop: !skip } : { text: "over budget", tone: "red", drop: !skip }}
+          stamp={outcome.paid ? { text: inHunt ? "daily hunt" : "logged", tone: "green", drop: !skip } : outcome.regionRestricted || outcome.fragmentsPaused ? { text: "card only", tone: "green", drop: !skip } : { text: "over budget", tone: "red", drop: !skip }}
           animate={!skip}
           size="lg"
         />
         {!outcome.paid && outcome.regionRestricted && <p className="legend" style={{ textAlign: "center", maxWidth: "40ch" }}>The card is yours and it is on the map. Stock Token fragments are not offered where you are, so none follows this one.</p>}
-        {!outcome.paid && !outcome.regionRestricted && <p className="legend" style={{ textAlign: "center", maxWidth: "40ch" }}>The card is yours. Today&apos;s budget was spent: no fragment this time, rearms in {duree(resetInSeconds)}.</p>}
+        {!outcome.paid && !outcome.regionRestricted && outcome.fragmentsPaused && <p className="legend" style={{ textAlign: "center", maxWidth: "40ch" }}>The card is yours, it is on the map and it counts toward your plates. Fragments open soon.</p>}
+        {!outcome.paid && !outcome.regionRestricted && !outcome.fragmentsPaused && <p className="legend" style={{ textAlign: "center", maxWidth: "40ch" }}>The card is yours. Today&apos;s budget was spent: no fragment this time, rearms in {duree(resetInSeconds)}.</p>}
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, ease: EASE, delay: skip ? 0 : 2 }} style={{ display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center" }}>
           <Link href="/carnet" className="btn">
             see the notebook

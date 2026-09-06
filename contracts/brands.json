@@ -1,0 +1,1074 @@
+[
+  {
+    "id": 1,
+    "name": "Amazon",
+    "symbol": "AMZN",
+    "sector": 1,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 2,
+    "name": "UPS",
+    "symbol": "UPS",
+    "sector": 1,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 3,
+    "name": "DHL",
+    "symbol": "DHL",
+    "sector": 1,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 4,
+    "name": "FedEx",
+    "symbol": "FDX",
+    "sector": 1,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 5,
+    "name": "Maersk",
+    "symbol": "MAERSK",
+    "sector": 1,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 6,
+    "name": "Coca-Cola",
+    "symbol": "KO",
+    "sector": 2,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 7,
+    "name": "PepsiCo",
+    "symbol": "PEP",
+    "sector": 2,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 8,
+    "name": "Celsius",
+    "symbol": "CELH",
+    "sector": 2,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 9,
+    "name": "Starbucks",
+    "symbol": "SBUX",
+    "sector": 2,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 10,
+    "name": "Tesla",
+    "symbol": "TSLA",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 11,
+    "name": "Ford",
+    "symbol": "F",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 12,
+    "name": "Uber",
+    "symbol": "UBER",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 13,
+    "name": "Toyota",
+    "symbol": "TM",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 14,
+    "name": "Apple",
+    "symbol": "AAPL",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 15,
+    "name": "Samsung",
+    "symbol": "SSNLF",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 16,
+    "name": "Netflix",
+    "symbol": "NFLX",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 17,
+    "name": "Shell",
+    "symbol": "SHEL",
+    "sector": 5,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 18,
+    "name": "TotalEnergies",
+    "symbol": "TTE",
+    "sector": 5,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 19,
+    "name": "McDonald's",
+    "symbol": "MCD",
+    "sector": 6,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 20,
+    "name": "Nike",
+    "symbol": "NKE",
+    "sector": 7,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 21,
+    "name": "Walmart",
+    "symbol": "WMT",
+    "sector": 7,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 22,
+    "name": "Target",
+    "symbol": "TGT",
+    "sector": 7,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 23,
+    "name": "Visa",
+    "symbol": "V",
+    "sector": 8,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 24,
+    "name": "Mastercard",
+    "symbol": "MA",
+    "sector": 8,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 25,
+    "name": "American Express",
+    "symbol": "AXP",
+    "sector": 8,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 26,
+    "name": "Google",
+    "symbol": "GOOGL",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 27,
+    "name": "Meta",
+    "symbol": "META",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 28,
+    "name": "Disney",
+    "symbol": "DIS",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 29,
+    "name": "Home Depot",
+    "symbol": "HD",
+    "sector": 7,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 30,
+    "name": "Chevron",
+    "symbol": "CVX",
+    "sector": 5,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 31,
+    "name": "Burger King",
+    "symbol": "QSR",
+    "sector": 6,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 32,
+    "name": "KFC",
+    "symbol": "YUM",
+    "sector": 6,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 33,
+    "name": "Chipotle",
+    "symbol": "CMG",
+    "sector": 6,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 34,
+    "name": "Intel",
+    "symbol": "INTC",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 35,
+    "name": "Nvidia",
+    "symbol": "NVDA",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 36,
+    "name": "Spotify",
+    "symbol": "SPOT",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 37,
+    "name": "Airbnb",
+    "symbol": "ABNB",
+    "sector": 11,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 38,
+    "name": "Lyft",
+    "symbol": "LYFT",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 39,
+    "name": "DoorDash",
+    "symbol": "DASH",
+    "sector": 6,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 40,
+    "name": "IBM",
+    "symbol": "IBM",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 41,
+    "name": "Adidas",
+    "symbol": "ADS",
+    "sector": 9,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 42,
+    "name": "Puma",
+    "symbol": "PUM",
+    "sector": 9,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 43,
+    "name": "H&M",
+    "symbol": "HM-B",
+    "sector": 9,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 44,
+    "name": "Volkswagen",
+    "symbol": "VOW3",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 45,
+    "name": "BMW",
+    "symbol": "BMW",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 46,
+    "name": "Mercedes-Benz",
+    "symbol": "MBG",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 47,
+    "name": "Audi",
+    "symbol": "VOW3",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 48,
+    "name": "Renault",
+    "symbol": "RNO",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 49,
+    "name": "Ferrari",
+    "symbol": "RACE",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 50,
+    "name": "Siemens",
+    "symbol": "SIE",
+    "sector": 12,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 51,
+    "name": "Philips",
+    "symbol": "PHIA",
+    "sector": 10,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 52,
+    "name": "L'Oréal",
+    "symbol": "OR",
+    "sector": 9,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 53,
+    "name": "Louis Vuitton",
+    "symbol": "MC",
+    "sector": 9,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 54,
+    "name": "Gucci",
+    "symbol": "KER",
+    "sector": 9,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 55,
+    "name": "Heineken",
+    "symbol": "HEIA",
+    "sector": 2,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 56,
+    "name": "Carrefour",
+    "symbol": "CA",
+    "sector": 7,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 57,
+    "name": "Tesco",
+    "symbol": "TSCO",
+    "sector": 7,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 58,
+    "name": "Vodafone",
+    "symbol": "VOD",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 59,
+    "name": "Orange",
+    "symbol": "ORA",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 60,
+    "name": "Deutsche Telekom",
+    "symbol": "DTE",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 61,
+    "name": "Lufthansa",
+    "symbol": "LHA",
+    "sector": 11,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 62,
+    "name": "Ryanair",
+    "symbol": "RYAAY",
+    "sector": 11,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 63,
+    "name": "Airbus",
+    "symbol": "AIR",
+    "sector": 12,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 64,
+    "name": "SAP",
+    "symbol": "SAP",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 65,
+    "name": "Zalando",
+    "symbol": "ZAL",
+    "sector": 7,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 66,
+    "name": "Allianz",
+    "symbol": "ALV",
+    "sector": 8,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 67,
+    "name": "AXA",
+    "symbol": "CS",
+    "sector": 8,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 68,
+    "name": "HSBC",
+    "symbol": "HSBA",
+    "sector": 8,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 69,
+    "name": "Santander",
+    "symbol": "SAN",
+    "sector": 8,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 70,
+    "name": "Hyundai",
+    "symbol": "005380",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 71,
+    "name": "Kia",
+    "symbol": "000270",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 72,
+    "name": "Nintendo",
+    "symbol": "NTDOY",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 73,
+    "name": "LG",
+    "symbol": "066570",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 74,
+    "name": "Panasonic",
+    "symbol": "6752",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 75,
+    "name": "Uniqlo",
+    "symbol": "9983",
+    "sector": 9,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 76,
+    "name": "Canon",
+    "symbol": "CAJ",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 77,
+    "name": "Xiaomi",
+    "symbol": "1810",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 78,
+    "name": "Shopify",
+    "symbol": "SHOP",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 79,
+    "name": "Lululemon",
+    "symbol": "LULU",
+    "sector": 9,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 80,
+    "name": "Delta",
+    "symbol": "DAL",
+    "sector": 11,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 81,
+    "name": "American Airlines",
+    "symbol": "AAL",
+    "sector": 11,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 82,
+    "name": "Procter & Gamble",
+    "symbol": "PG",
+    "sector": 10,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 83,
+    "name": "Kellogg's",
+    "symbol": "K",
+    "sector": 6,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 84,
+    "name": "Chevrolet",
+    "symbol": "GM",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 85,
+    "name": "Jeep",
+    "symbol": "STLA",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 86,
+    "name": "Caterpillar",
+    "symbol": "CAT",
+    "sector": 12,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 87,
+    "name": "John Deere",
+    "symbol": "DE",
+    "sector": 12,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 88,
+    "name": "Boeing",
+    "symbol": "BA",
+    "sector": 12,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 89,
+    "name": "Dell",
+    "symbol": "DELL",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 90,
+    "name": "HP",
+    "symbol": "HPQ",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 91,
+    "name": "Cisco",
+    "symbol": "CSCO",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 92,
+    "name": "Oracle",
+    "symbol": "ORCL",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 93,
+    "name": "Adobe",
+    "symbol": "ADBE",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 94,
+    "name": "Coinbase",
+    "symbol": "COIN",
+    "sector": 8,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 95,
+    "name": "Bank of America",
+    "symbol": "BAC",
+    "sector": 8,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 96,
+    "name": "Chase",
+    "symbol": "JPM",
+    "sector": 8,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 97,
+    "name": "Wells Fargo",
+    "symbol": "WFC",
+    "sector": 8,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 98,
+    "name": "CVS",
+    "symbol": "CVS",
+    "sector": 7,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 99,
+    "name": "Walgreens",
+    "symbol": "WBA",
+    "sector": 7,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 100,
+    "name": "Lowe's",
+    "symbol": "LOW",
+    "sector": 7,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 101,
+    "name": "Wendy's",
+    "symbol": "WEN",
+    "sector": 6,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 102,
+    "name": "7-Eleven",
+    "symbol": "3382",
+    "sector": 7,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 103,
+    "name": "Ericsson",
+    "symbol": "ERIC",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 104,
+    "name": "Nokia",
+    "symbol": "NOK",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 105,
+    "name": "BIC",
+    "symbol": "BB",
+    "sector": 10,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 106,
+    "name": "Repsol",
+    "symbol": "REP",
+    "sector": 5,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 107,
+    "name": "Air France",
+    "symbol": "AF",
+    "sector": 11,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 108,
+    "name": "easyJet",
+    "symbol": "EZJ",
+    "sector": 11,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 109,
+    "name": "ING",
+    "symbol": "INGA",
+    "sector": 8,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 110,
+    "name": "BNP Paribas",
+    "symbol": "BNP",
+    "sector": 8,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 111,
+    "name": "Deutsche Bank",
+    "symbol": "DBK",
+    "sector": 8,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 112,
+    "name": "Barclays",
+    "symbol": "BARC",
+    "sector": 8,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 113,
+    "name": "Peugeot",
+    "symbol": "STLA",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 114,
+    "name": "Fiat",
+    "symbol": "STLA",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 115,
+    "name": "Continental",
+    "symbol": "CON",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 116,
+    "name": "Nissan",
+    "symbol": "7201",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 117,
+    "name": "Suzuki",
+    "symbol": "7269",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 118,
+    "name": "Harley-Davidson",
+    "symbol": "HOG",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 119,
+    "name": "Tencent",
+    "symbol": "0700",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 120,
+    "name": "Toshiba",
+    "symbol": "6502",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 121,
+    "name": "Honda",
+    "symbol": "HMC",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 122,
+    "name": "Danone",
+    "symbol": "BN",
+    "sector": 6,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 123,
+    "name": "Michelin",
+    "symbol": "ML",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 124,
+    "name": "Alibaba",
+    "symbol": "BABA",
+    "sector": 4,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 125,
+    "name": "BYD",
+    "symbol": "1211",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 126,
+    "name": "Robinhood",
+    "symbol": "HOOD",
+    "sector": 8,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 127,
+    "name": "Volvo",
+    "symbol": "VOLCAR-B",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 128,
+    "name": "Porsche",
+    "symbol": "P911",
+    "sector": 3,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 129,
+    "name": "Marriott",
+    "symbol": "MAR",
+    "sector": 11,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 130,
+    "name": "Colgate",
+    "symbol": "CL",
+    "sector": 10,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 131,
+    "name": "Heinz",
+    "symbol": "KHC",
+    "sector": 6,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 132,
+    "name": "Budweiser",
+    "symbol": "BUD",
+    "sector": 2,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 133,
+    "name": "UBS",
+    "symbol": "UBS",
+    "sector": 8,
+    "token": "",
+    "priceFeed": ""
+  },
+  {
+    "id": 134,
+    "name": "Hilton",
+    "symbol": "HLT",
+    "sector": 11,
+    "token": "",
+    "priceFeed": ""
+  }
+]

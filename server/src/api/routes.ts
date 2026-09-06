@@ -5,6 +5,7 @@ import type { PriseService } from "../claim/orchestrate.js";
 import type { Repos } from "../db/repos.js";
 import type { ChainReader } from "../chain/client.js";
 import type { ObjectStore } from "../media/storage.js";
+import type { VoucherSigner } from "../voucher/sign.js";
 import type { SensorSample, PriseOutcome } from "../domain/types.js";
 import { cityCode, cityLabel } from "../infra/city.js";
 import { CITIES } from "../infra/cities.js";
@@ -32,7 +33,8 @@ export interface RouteDeps {
   repos: Repos;
   chain: ChainReader;
   store: ObjectStore;
-  config: { dailyBudgetUsd: number; chainId: number; vault: Address | null; explorer: string };
+  signer: VoucherSigner;
+  config: { dailyBudgetUsd: number; chainId: number; vault: Address | null; explorer: string; fragmentsEnabled: boolean };
   now: () => number;
 }
 
@@ -150,6 +152,7 @@ export async function registerRoutes(app: FastifyInstance, d: RouteDeps): Promis
       sightingsToday: (stats?.claims ?? 0) + (stats?.sightingsOnly ?? 0),
       resetInSeconds: secondsUntilReset(now),
       budgetExhausted: budget.spentUsd8 >= budget.budgetUsd8,
+      fragmentsEnabled: d.config.fragmentsEnabled,
     };
   });
 
@@ -237,6 +240,15 @@ export async function registerRoutes(app: FastifyInstance, d: RouteDeps): Promis
   });
 
   app.get("/sante", async () => ({ ok: true, chainId: d.config.chainId }));
+
+  /** Sonde de l'hébergeur (Render, Fly, VPS) : sans auth, 200 dès que le serveur écoute. */
+  app.get("/health", async () => ({
+    ok: true,
+    signer: d.signer.address,
+    brands: (await d.repos.brands.listActive()).length,
+    fragmentsEnabled: d.config.fragmentsEnabled,
+    chain: d.config.chainId,
+  }));
 }
 
 export function deletionMessage(id: number): string {

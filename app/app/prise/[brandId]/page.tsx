@@ -19,5 +19,5 @@ export default async function ShotPage({ params }: { params: Promise<{ brandId: 
     );
   }
   const inHunt = chasse.brands.some((b) => b.id === id);
-  return <Prise brand={brand} inHunt={inHunt} budgetExhausted={chasse.budgetExhausted} resetInSeconds={chasse.resetInSeconds} />;
+  return <Prise brand={brand} inHunt={inHunt} budgetExhausted={chasse.budgetExhausted} fragmentsPaused={chasse.fragmentsEnabled === false} resetInSeconds={chasse.resetInSeconds} />;
 }

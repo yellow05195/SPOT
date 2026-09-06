@@ -127,6 +127,7 @@ export type PriseOutcome =
       usdValue: number;
       paid: boolean; // false → budget épuisé ou région sans fragment : fiche seule
       regionRestricted: boolean; // true → pays où les Stock Tokens ne sont pas proposés
+      fragmentsPaused: boolean; // true → fragments désactivés côté serveur (FRAGMENTS_ENABLED=false) : fiche seule
       inHunt: boolean;
       rarity: number;
       imageKey: string;

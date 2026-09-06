@@ -19,6 +19,8 @@ Les documents de conformité et de sécurité sont à la racine : [`LEGAL.md`](L
 
 ---
 
+> Pour sortir aujourd'hui : `LAUNCH.md`, le plan en une heure (fiches d'abord, fragments ensuite). Le détail de chaque brique est dans `DEPLOY.md`.
+
 ## État du build
 
 | Phase | Contenu | État |
@@ -111,7 +113,7 @@ Ces points ne sont pas dans la spec mot pour mot. Ils sont documentés pour êtr
 
 ## Ce qu'il manque encore, honnêtement
 
-- **Les poids ONNX** : `clip-vision.onnx` (ViT-B/32, 352 Mo) et `face.onnx` (UltraFace-320) sont téléchargés dans `server/models/` (voir DEPLOY.md pour les refaire) ; `plate.onnx` (YOLO plaques) reste à exporter depuis un modèle PyTorch, ce qui demande Python. Le corpus de référence est en mode zero-shot (invites textuelles CLIP, `scripts/build-refs.mjs`) : il fonctionne partout dès le premier jour, la bande médiane part en escalade ; les vraies photos du test terrain le remplacent marque par marque avec `scripts/add-ref.mjs`.
+- **Les poids ONNX** : `clip-vision.onnx` (ViT-B/32, 352 Mo) et `face.onnx` (UltraFace-320) sont téléchargés dans `server/models/` (voir DEPLOY.md pour les refaire) ; `plate.onnx` (YOLO11 nano plaques, morsetechlab, AGPL-3.0) se télécharge comme les deux autres avec `pnpm models` (`scripts/fetch-models.mjs`), et l'image Docker les embarque au build. Le corpus de référence est en mode zero-shot (invites textuelles CLIP, `scripts/build-refs.mjs`) : il fonctionne partout dès le premier jour, la bande médiane part en escalade ; les vraies photos du test terrain le remplacent marque par marque avec `scripts/add-ref.mjs`.
 - **Les adresses réelles sur Robinhood Chain** : Stock Tokens, feeds Chainlink, USDG, WETH, routeur et pools Uniswap V4, feed ETH/USD. `keeper/src/chain.ts › buildRoute` est volontairement une erreur explicite tant qu'elles ne sont pas connues.
 - **Le nom et l'échelle réels de `currentMultiplier()`.**
 - **L'abonnement** (source de revenu n° 2) et son effet sur les quotas (le champ `subscriber` existe déjà partout).
