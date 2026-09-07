@@ -41,13 +41,11 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
           <div style={{ width: Math.min(560, marque.length * 30), height: 3, background: "#1F3A5F", marginTop: 4, opacity: 0.85 }} />
         </div>
         <div style={{ display: "flex", flexDirection: "column", marginTop: 24, fontFamily: "monospace", fontSize: 22, color: "#857C68", gap: 8 }}>
-          <div>
-            {date} · {ville}
-          </div>
-          <div style={{ color: "#232019" }}>×{coeff.toFixed(2)}</div>
+          <div>{`${date} · ${ville}`}</div>
+          <div style={{ color: "#232019" }}>{`×${coeff.toFixed(2)}`}</div>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginTop: "auto", fontFamily: "monospace", fontSize: 20, color: "#857C68" }}>
-          <div>No. {String(id).padStart(6, "0")}</div>
+          <div>{`No. ${String(id).padStart(6, "0")}`}</div>
           <div style={{ border: "2px solid #3D6B4A", color: "#3D6B4A", padding: "6px 14px", fontSize: 18, letterSpacing: 4, transform: "rotate(-7deg)", opacity: 0.8, fontFamily: "Georgia" }}>LOGGED</div>
         </div>
       </div>
