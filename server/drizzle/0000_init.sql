@@ -90,4 +90,10 @@ CREATE TABLE "sightings" (
 --> statement-breakpoint
 ALTER TABLE "sightings" ADD CONSTRAINT "sightings_brand_id_brands_id_fk" FOREIGN KEY ("brand_id") REFERENCES "public"."brands"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 CREATE INDEX "sightings_phash_idx" ON "sightings" USING hash ("phash");--> statement-breakpoint
-CREATE INDEX "sightings_wallet_created_idx" ON "sightings" USING btree ("wallet","created_at");
+CREATE INDEX "sightings_wallet_created_idx" ON "sightings" USING btree ("wallet","created_at");--> statement-breakpoint
+CREATE TABLE "media" (
+	"key" text PRIMARY KEY NOT NULL,
+	"body" "bytea" NOT NULL,
+	"content_type" text NOT NULL,
+	"created_at" timestamp with time zone DEFAULT now() NOT NULL
+);

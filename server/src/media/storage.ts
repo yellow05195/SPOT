@@ -1,4 +1,5 @@
 import { mkdir, writeFile, unlink, readFile } from "node:fs/promises";
+import postgres from "postgres";
 import path from "node:path";
 import { S3Client, PutObjectCommand, DeleteObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
 
@@ -80,4 +81,35 @@ export class S3ObjectStore implements ObjectStore {
 
 export function imageKey(wallet: string, sha256: string): string {
   return `fiches/${wallet.toLowerCase()}/${sha256.slice(2, 18)}.webp`;
+}
+
+/**
+ * Photos dans Postgres (offre gratuite, sans S3 ni disque persistant) : un webp traité pèse quelques
+ * dizaines de Ko, la table tient des dizaines de milliers de fiches. Servies par GET /media/:key.
+ */
+export class PgObjectStore implements ObjectStore {
+  private readonly sql: ReturnType<typeof postgres>;
+  constructor(
+    databaseUrl: string,
+    private readonly baseUrl: string,
+  ) {
+    this.sql = postgres(databaseUrl, { max: 4 });
+  }
+  async put(key: string, body: Buffer, contentType: string): Promise<void> {
+    await this.sql`insert into media (key, body, content_type) values (${key}, ${body}, ${contentType}) on conflict (key) do update set body = excluded.body, content_type = excluded.content_type`;
+  }
+  async get(key: string): Promise<Buffer | null> {
+    const rows = await this.sql<{ body: Buffer }[]>`select body from media where key = ${key}`;
+    return rows[0]?.body ?? null;
+  }
+  async contentType(key: string): Promise<string | null> {
+    const rows = await this.sql<{ content_type: string }[]>`select content_type from media where key = ${key}`;
+    return rows[0]?.content_type ?? null;
+  }
+  async delete(key: string): Promise<void> {
+    await this.sql`delete from media where key = ${key}`;
+  }
+  publicUrl(key: string): string {
+    return `${this.baseUrl}/${key}`;
+  }
 }

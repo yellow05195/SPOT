@@ -22,6 +22,9 @@ COPY server/scripts ./scripts
 COPY server/drizzle ./drizzle
 COPY server/models/refs ./models/refs
 # Models are fetched once, at build time, so the container starts without network access to the hubs.
+# CLIP_MODEL_URL (build arg or env) selects the CLIP variant; the quantized one fits a 512 MB host.
+ARG CLIP_MODEL_URL=
+ENV CLIP_MODEL_URL=$CLIP_MODEL_URL
 RUN node scripts/fetch-models.mjs && chown -R node:node /app/models
 EXPOSE 3001
 USER node

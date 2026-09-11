@@ -181,6 +181,17 @@ export async function registerRoutes(app: FastifyInstance, d: RouteDeps): Promis
     return { fiches: rows.map((s) => publicSighting(s, d.store)) };
   });
 
+  // the processed photos, whatever the store behind (disk, Postgres, memory); S3 serves its own URLs
+  app.get<{ Params: { "*": string } }>("/media/*", async (req, reply) => {
+    const key = req.params["*"];
+    if (!/^[A-Za-z0-9._/-]{1,200}$/.test(key) || key.includes("..")) return reply.code(400).send({ error: "bad key" });
+    const body = await d.store.get(key);
+    if (!body) return reply.code(404).send({ error: "not found" });
+    const maybe = d.store as ObjectStore & { contentType?: (k: string) => Promise<string | null> };
+    const type = (maybe.contentType ? await maybe.contentType(key) : null) ?? (key.endsWith(".webp") ? "image/webp" : "application/octet-stream");
+    return reply.header("content-type", type).header("cache-control", "public, max-age=31536000, immutable").send(body);
+  });
+
   app.get("/vault", async () => {
     const budget = await d.chain.budgetState();
     const brands = await d.repos.brands.listActive();

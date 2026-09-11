@@ -102,3 +102,11 @@ export const pendingPrises = pgTable("pending_prises", {
   createdAt: timestamp("created_at", { withTimezone: true }).notNull(),
   lastNonce: bigint("last_nonce", { mode: "bigint" }),
 });
+
+/** Photos traitées quand ni S3 ni disque persistant ne sont disponibles (offre gratuite) : petites (webp), servies par GET /media/:key. */
+export const media = pgTable("media", {
+  key: text("key").primaryKey(),
+  body: bytea("body").notNull(),
+  contentType: text("content_type").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+});

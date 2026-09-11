@@ -10,7 +10,9 @@ import { pipeline } from "node:stream/promises";
 import { Readable } from "node:stream";
 
 const MODELS = [
-  { file: "clip-vision.onnx", url: "https://huggingface.co/Xenova/clip-vit-base-patch32/resolve/main/onnx/vision_model.onnx" },
+  // CLIP_MODEL_URL picks the variant: the fp32 model (default, 335 MB in memory) or the quantized one
+  // (vision_model_quantized.onnx, 88 MB) for small hosts. The thresholds were calibrated on fp32.
+  { file: "clip-vision.onnx", url: process.env.CLIP_MODEL_URL || "https://huggingface.co/Xenova/clip-vit-base-patch32/resolve/main/onnx/vision_model.onnx" },
   { file: "face.onnx", url: "https://github.com/onnx/models/raw/main/validated/vision/body_analysis/ultraface/models/version-RFB-320.onnx" },
   { file: "plate.onnx", url: "https://huggingface.co/morsetechlab/yolov11-license-plate-detection/resolve/main/license-plate-finetune-v1n.onnx" },
 ];

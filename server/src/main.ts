@@ -13,7 +13,7 @@ import { FakeChainReader, ViemChainReader, type ChainReader } from "./chain/clie
 import { FileReferenceCorpus, OnnxClipEmbedder, type Embedder } from "./vision/clip.js";
 import { ClaudeEscalator, NullEscalator, type Escalator } from "./vision/escalate.js";
 import { NullDetector, OnnxDetector, type Detector } from "./media/detect.js";
-import { FsObjectStore, MemoryObjectStore, S3ObjectStore, type ObjectStore } from "./media/storage.js";
+import { FsObjectStore, MemoryObjectStore, PgObjectStore, S3ObjectStore, type ObjectStore } from "./media/storage.js";
 import { KmsSigner, LocalDevSigner } from "./voucher/signer.js";
 import { NonceSource, spotDomain, type VoucherSigner } from "./voucher/sign.js";
 import { PriseService } from "./claim/orchestrate.js";
@@ -59,11 +59,15 @@ export async function buildApp() {
   else throw new Error("SIGNER_KMS_KEY_ID (prod) ou SIGNER_DEV_PRIVATE_KEY (dev) requis");
   log.info({ signer: signer.address }, "signer");
 
+  const mediaBase = cfg.S3_PUBLIC_BASE_URL ?? cfg.PUBLIC_MEDIA_BASE_URL ?? `http://localhost:${cfg.PORT}/media`;
   const store: ObjectStore = cfg.S3_BUCKET
     ? new S3ObjectStore(cfg.S3_BUCKET, cfg.S3_PUBLIC_BASE_URL ?? "", cfg.S3_ENDPOINT, cfg.AWS_REGION)
-    : cfg.MEDIA_LOCAL_DIR
-      ? new FsObjectStore(cfg.MEDIA_LOCAL_DIR, cfg.S3_PUBLIC_BASE_URL ?? cfg.PUBLIC_MEDIA_BASE_URL ?? `http://localhost:${cfg.PORT}/media`)
-      : new MemoryObjectStore();
+    : cfg.MEDIA_IN_DATABASE && cfg.DATABASE_URL
+      ? new PgObjectStore(cfg.DATABASE_URL, mediaBase)
+      : cfg.MEDIA_LOCAL_DIR
+        ? new FsObjectStore(cfg.MEDIA_LOCAL_DIR, mediaBase)
+        : new MemoryObjectStore();
+  if (store instanceof PgObjectStore) log.warn("MEDIA_IN_DATABASE : photos stockées dans Postgres (offre gratuite), passer à S3/R2 dès que possible");
 
   const clipPath = path.join(cfg.MODELS_DIR, "clip-vision.onnx");
   let embedder: Embedder;

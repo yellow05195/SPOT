@@ -38,6 +38,7 @@ const schema = z.object({
   S3_ENDPOINT: z.string().url().optional(),
   S3_PUBLIC_BASE_URL: z.string().url().optional(),
   MEDIA_LOCAL_DIR: z.string().optional(),
+  MEDIA_IN_DATABASE: envBool(false),
   /** Base publique du dossier média local (disque persistant) quand il n'y a pas de S3. */
   PUBLIC_MEDIA_BASE_URL: z.string().url().optional(),
 
@@ -68,8 +69,10 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env, warnings: strin
     }
     if (!cfg.SIGNER_KMS_KEY_ID && !cfg.SIGNER_DEV_PRIVATE_KEY) throw new Error("SIGNER_KMS_KEY_ID requis en production");
     if (!cfg.DATABASE_URL || !cfg.REDIS_URL) throw new Error("DATABASE_URL et REDIS_URL requis en production");
-    if (!cfg.S3_BUCKET) {
-      if (!cfg.MEDIA_LOCAL_DIR) throw new Error("S3_BUCKET requis en production (ou MEDIA_LOCAL_DIR sur un disque persistant)");
+    if (!cfg.S3_BUCKET && cfg.MEDIA_IN_DATABASE) {
+      warnings.push("S3_BUCKET absent : médias stockés dans Postgres (MEDIA_IN_DATABASE), passer à S3/R2 dès que possible");
+    } else if (!cfg.S3_BUCKET) {
+      if (!cfg.MEDIA_LOCAL_DIR) throw new Error("S3_BUCKET requis en production (ou MEDIA_LOCAL_DIR sur un disque persistant, ou MEDIA_IN_DATABASE=true)");
       warnings.push(`S3_BUCKET absent : médias sur le disque local ${cfg.MEDIA_LOCAL_DIR} (doit être persistant)`);
     }
   }
