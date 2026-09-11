@@ -19,11 +19,16 @@ export function Ticker({ items, countries, today }: { items: TickerItem[]; count
       <div className="ticker-head">
         <span className="ticker-dot" aria-hidden="true" />
         <span className="eyebrow" style={{ color: "var(--text)" }}>
-          live · {countries} countries · {today} cards today
+          {today === 0 && countries === 0 ? "live · the street is open" : `live · ${countries} countries · ${today} cards today`}
         </span>
       </div>
       <div className="ticker-viewport">
         <div className="ticker-row" style={{ animationDuration: `${Math.max(36, items.length * 5)}s` }}>
+          {items.length === 0 && (
+            <span className="ticker-item">
+              <span className="mono legend">the first cards from the street will appear here, be the first</span>
+            </span>
+          )}
           {row.map((it, i) => (
             <span key={`${it.id}-${i}`} className="ticker-item">
               <BrandLogo brand={it.brand} size={28} />

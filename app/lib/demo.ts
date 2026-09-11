@@ -141,8 +141,10 @@ const brands: BrandDto[] = [
   { id: 134, name: "Hilton", symbol: SYMBOLS[134] ?? null, sector: 11, rarity: 1.7 },
 ];
 
-const now = new Date("2026-09-05T14:22:00Z");
-const daysAgo = (d: number, h = 0) => new Date(now.getTime() - d * 86400_000 - h * 3600_000).toISOString();
+/** Day one: nothing logged yet. The notebook, the map and the plates start empty; the catalogue and the hunt are real. */
+const DAY = Math.floor(Date.now() / 86_400_000);
+const RESET_IN = (DAY + 1) * 86_400 - Math.floor(Date.now() / 1000);
+const OPENS_AT = DAY * 86_400;
 
 /** Photos de démonstration : des à-plats de papier, pas de vraies photos, pas de logos. */
 const img = (seed: number) =>
@@ -150,129 +152,56 @@ const img = (seed: number) =>
     `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800"><rect width="600" height="800" fill="hsl(${(seed * 47) % 360} 18% ${52 + (seed % 5) * 6}%)"/><rect x="${60 + (seed % 7) * 30}" y="${420 - (seed % 4) * 60}" width="${220 + (seed % 3) * 60}" height="${260}" fill="hsl(${(seed * 47 + 180) % 360} 22% 34%)"/><rect y="640" width="600" height="160" fill="hsl(${(seed * 31) % 360} 12% 38%)"/></svg>`,
   )}`;
 
-const fiches: FicheDto[] = [
-  { id: 4821, brandId: 1, date: daysAgo(0, 1), image: img(1), imageHash: "0x9c3e…", city: "New York, US", inHunt: true, rarity: 0.62, usdValue: 0.31, paid: true },
-  { id: 4788, brandId: 6, date: daysAgo(0, 5), image: img(2), imageHash: "0x11ab…", city: "Tokyo, JP", inHunt: false, rarity: 0.4, usdValue: 0.06, paid: true },
-  { id: 4702, brandId: 10, date: daysAgo(1), image: img(3), imageHash: "0x77c0…", city: "Berlin, DE", inHunt: true, rarity: 1.0, usdValue: 0.5, paid: true },
-  { id: 4611, brandId: 16, date: daysAgo(2), image: img(4), imageHash: "0xa0e4…", city: "Sao Paulo, BR", inHunt: true, rarity: 4.4, usdValue: 2.2, paid: true },
-  { id: 4590, brandId: 2, date: daysAgo(3), image: img(5), imageHash: "0x3f12…", city: "Singapore, SG", inHunt: false, rarity: 1.4, usdValue: 0, paid: false },
-  { id: 4433, brandId: 5, date: daysAgo(6), image: img(6), imageHash: "0xbe90…", city: "Mexico City, MX", inHunt: true, rarity: 5.3, usdValue: 2.65, paid: true },
-  { id: 4401, brandId: 14, date: daysAgo(8), image: img(7), imageHash: "0x5d5d…", city: "Sydney, AU", inHunt: false, rarity: 0.55, usdValue: 0.08, paid: true },
-  { id: 4322, brandId: 19, date: daysAgo(12), image: img(8), imageHash: "0x0c0c…", city: "Lisbon, PT", inHunt: true, rarity: 0.6, usdValue: 0.3, paid: true },
-  { id: 4210, brandId: 17, date: daysAgo(15), image: img(9), imageHash: "0x8811…", city: "Dubai, AE", inHunt: false, rarity: 0.95, usdValue: 0.14, paid: true },
-  { id: 4102, brandId: 3, date: daysAgo(20), image: img(10), imageHash: "0x2fa2…", city: "Seoul, KR", inHunt: true, rarity: 1.1, usdValue: 0.55, paid: true },
-  { id: 3990, brandId: 12, date: daysAgo(24), image: img(11), imageHash: "0x6e6e…", city: "Los Angeles, US", inHunt: false, rarity: 0.8, usdValue: 0.12, paid: true },
-  { id: 3877, brandId: 20, date: daysAgo(31), image: img(12), imageHash: "0xd4d4…", city: "Amsterdam, NL", inHunt: true, rarity: 1.7, usdValue: 0.85, paid: true },
-];
+const fiches: FicheDto[] = [];
 
-const terrain: FicheDto[] = [
-  ...fiches.slice(0, 6),
-  { id: 4830, brandId: 13, date: daysAgo(0, 0.2), image: img(13), imageHash: "0x…", city: "Cape Town, ZA", inHunt: true, rarity: 0.7, usdValue: 0.35, paid: true },
-  { id: 4829, brandId: 7, date: daysAgo(0, 0.4), image: img(14), imageHash: "0x…", city: "Bangkok, TH", inHunt: false, rarity: 0.9, usdValue: 0.13, paid: true },
-  { id: 4826, brandId: 9, date: daysAgo(0, 0.9), image: img(15), imageHash: "0x…", city: "Chicago, US", inHunt: true, rarity: 1.2, usdValue: 0.6, paid: true },
-  { id: 4824, brandId: 11, date: daysAgo(0, 1.3), image: img(16), imageHash: "0x…", city: "Milan, IT", inHunt: false, rarity: 1.3, usdValue: 0.2, paid: true },
-  { id: 4822, brandId: 18, date: daysAgo(0, 1.9), image: img(17), imageHash: "0x…", city: "Buenos Aires, AR", inHunt: true, rarity: 0.8, usdValue: 0.4, paid: true },
-  { id: 4819, brandId: 15, date: daysAgo(0, 2.4), image: img(18), imageHash: "0x…", city: "Hong Kong, HK", inHunt: true, rarity: 0.9, usdValue: 0.45, paid: true },
-  { id: 4817, brandId: 13, date: daysAgo(0, 3.1), image: img(19), imageHash: "0x…", city: "Nairobi, KE", inHunt: true, rarity: 0.7, usdValue: 0.35, paid: true },
-  { id: 4815, brandId: 1, date: daysAgo(0, 3.6), image: img(20), imageHash: "0x…", city: "Istanbul, TR", inHunt: true, rarity: 0.62, usdValue: 0.31, paid: true },
-  { id: 4812, brandId: 6, date: daysAgo(0, 4.2), image: img(21), imageHash: "0x…", city: "Mumbai, IN", inHunt: false, rarity: 0.4, usdValue: 0.06, paid: true },
-  { id: 4810, brandId: 10, date: daysAgo(0, 4.9), image: img(22), imageHash: "0x…", city: "Miami, US", inHunt: true, rarity: 1.0, usdValue: 0.5, paid: true },
-  { id: 4808, brandId: 19, date: daysAgo(0, 5.5), image: img(23), imageHash: "0x…", city: "Stockholm, SE", inHunt: true, rarity: 0.6, usdValue: 0.3, paid: true },
-  { id: 4806, brandId: 15, date: daysAgo(0, 6.1), image: img(24), imageHash: "0x…", city: "Casablanca, MA", inHunt: false, rarity: 0.9, usdValue: 0.13, paid: true },
-  { id: 4804, brandId: 20, date: daysAgo(0, 6.8), image: img(25), imageHash: "0x…", city: "Cape Town, ZA", inHunt: false, rarity: 1.7, usdValue: 0.25, paid: true },
-  { id: 4802, brandId: 17, date: daysAgo(0, 7.4), image: img(26), imageHash: "0x…", city: "Bangkok, TH", inHunt: false, rarity: 0.95, usdValue: 0.14, paid: true },
-  { id: 4800, brandId: 21, date: daysAgo(0, 8.1), image: img(27), imageHash: "0x…", city: "Austin, US", inHunt: false, rarity: 0.5, usdValue: 0.08, paid: true },
-  { id: 4798, brandId: 45, date: daysAgo(0, 8.7), image: img(28), imageHash: "0x…", city: "Munich, DE", inHunt: false, rarity: 0.7, usdValue: 0.1, paid: true },
-  { id: 4796, brandId: 23, date: daysAgo(0, 9.2), image: img(29), imageHash: "0x…", city: "Dublin, IE", inHunt: false, rarity: 0.45, usdValue: 0.07, paid: true },
-  { id: 4794, brandId: 55, date: daysAgo(0, 9.8), image: img(30), imageHash: "0x…", city: "Amsterdam, NL", inHunt: false, rarity: 0.8, usdValue: 0.12, paid: true },
-  { id: 4792, brandId: 75, date: daysAgo(0, 10.3), image: img(31), imageHash: "0x…", city: "Osaka, JP", inHunt: false, rarity: 0.9, usdValue: 0.13, paid: true },
-  { id: 4790, brandId: 33, date: daysAgo(0, 10.9), image: img(32), imageHash: "0x…", city: "Seattle, US", inHunt: false, rarity: 1.4, usdValue: 0.21, paid: true },
-  { id: 4789, brandId: 58, date: daysAgo(0, 11.4), image: img(33), imageHash: "0x…", city: "Madrid, ES", inHunt: false, rarity: 0.9, usdValue: 0.13, paid: true },
-  { id: 4787, brandId: 70, date: daysAgo(0, 12), image: img(34), imageHash: "0x…", city: "Seoul, KR", inHunt: false, rarity: 0.7, usdValue: 0.1, paid: true },
-  { id: 4786, brandId: 26, date: daysAgo(1, 12.6), image: img(35), imageHash: "0x…", city: "Lagos, NG", inHunt: true, rarity: 0.5, usdValue: 0.07, paid: true },
-  { id: 4785, brandId: 44, date: daysAgo(1, 13.1), image: img(36), imageHash: "0x…", city: "Warsaw, PL", inHunt: false, rarity: 0.55, usdValue: 0.08, paid: true },
-  { id: 4784, brandId: 55, date: daysAgo(1, 13.5), image: img(37), imageHash: "0x…", city: "Dublin, IE", inHunt: false, rarity: 0.8, usdValue: 0.12, paid: true },
-  { id: 4783, brandId: 84, date: daysAgo(1, 14), image: img(38), imageHash: "0x…", city: "Bogota, CO", inHunt: false, rarity: 0.65, usdValue: 0.10, paid: true },
-  { id: 4782, brandId: 27, date: daysAgo(1, 14.4), image: img(39), imageHash: "0x…", city: "Jakarta, ID", inHunt: true, rarity: 1.2, usdValue: 0.18, paid: true },
-  { id: 4781, brandId: 57, date: daysAgo(1, 14.9), image: img(40), imageHash: "0x…", city: "Manila, PH", inHunt: false, rarity: 0.8, usdValue: 0.12, paid: true },
-  { id: 4780, brandId: 52, date: daysAgo(1, 15.3), image: img(41), imageHash: "0x…", city: "Lima, PE", inHunt: false, rarity: 1.1, usdValue: 0.17, paid: true },
-  { id: 4779, brandId: 64, date: daysAgo(1, 15.8), image: img(42), imageHash: "0x…", city: "Prague, CZ", inHunt: false, rarity: 1.5, usdValue: 0.22, paid: true },
-  { id: 4778, brandId: 45, date: daysAgo(1, 16.2), image: img(43), imageHash: "0x…", city: "Vienna, AT", inHunt: true, rarity: 0.7, usdValue: 0.10, paid: true },
-  { id: 4777, brandId: 72, date: daysAgo(1, 16.7), image: img(44), imageHash: "0x…", city: "Athens, GR", inHunt: false, rarity: 1.7, usdValue: 0.26, paid: true },
-  { id: 4776, brandId: 41, date: daysAgo(1, 17.1), image: img(45), imageHash: "0x…", city: "Helsinki, FI", inHunt: false, rarity: 0.8, usdValue: 0.12, paid: true },
-  { id: 4775, brandId: 62, date: daysAgo(1, 17.6), image: img(46), imageHash: "0x…", city: "Oslo, NO", inHunt: false, rarity: 1.9, usdValue: 0.28, paid: true },
-  { id: 4774, brandId: 21, date: daysAgo(1, 18), image: img(47), imageHash: "0x…", city: "Copenhagen, DK", inHunt: true, rarity: 0.5, usdValue: 0.07, paid: true },
-  { id: 4773, brandId: 68, date: daysAgo(1, 18.5), image: img(48), imageHash: "0x…", city: "Tel Aviv, IL", inHunt: false, rarity: 1.2, usdValue: 0.18, paid: true },
-  { id: 4772, brandId: 30, date: daysAgo(1, 18.9), image: img(49), imageHash: "0x…", city: "Riyadh, SA", inHunt: false, rarity: 0.9, usdValue: 0.14, paid: true },
-  { id: 4771, brandId: 32, date: daysAgo(1, 19.4), image: img(50), imageHash: "0x…", city: "Cairo, EG", inHunt: false, rarity: 0.7, usdValue: 0.10, paid: true },
-  { id: 4770, brandId: 3, date: daysAgo(1, 19.8), image: img(51), imageHash: "0x…", city: "Accra, GH", inHunt: true, rarity: 1.1, usdValue: 0.17, paid: true },
-  { id: 4769, brandId: 2, date: daysAgo(1, 20.3), image: img(52), imageHash: "0x…", city: "Johannesburg, ZA", inHunt: false, rarity: 1.4, usdValue: 0.21, paid: true },
-  { id: 4768, brandId: 58, date: daysAgo(1, 20.7), image: img(53), imageHash: "0x…", city: "Delhi, IN", inHunt: false, rarity: 0.9, usdValue: 0.14, paid: true },
-  { id: 4767, brandId: 75, date: daysAgo(1, 21.2), image: img(54), imageHash: "0x…", city: "Kuala Lumpur, MY", inHunt: false, rarity: 0.9, usdValue: 0.14, paid: true },
-  { id: 4766, brandId: 76, date: daysAgo(1, 21.6), image: img(55), imageHash: "0x…", city: "Taipei, TW", inHunt: true, rarity: 1.4, usdValue: 0.21, paid: true },
-  { id: 4765, brandId: 124, date: daysAgo(1, 22.1), image: img(56), imageHash: "0x…", city: "Shanghai, CN", inHunt: false, rarity: 1.5, usdValue: 0.22, paid: true },
-  { id: 4764, brandId: 79, date: daysAgo(1, 22.5), image: img(57), imageHash: "0x…", city: "Auckland, NZ", inHunt: false, rarity: 1.6, usdValue: 0.24, paid: true },
-  { id: 4763, brandId: 26, date: daysAgo(1, 23), image: img(58), imageHash: "0x…", city: "Melbourne, AU", inHunt: false, rarity: 0.5, usdValue: 0.07, paid: true },
-  { id: 4762, brandId: 102, date: daysAgo(1, 23.4), image: img(59), imageHash: "0x…", city: "Honolulu, US", inHunt: true, rarity: 0.6, usdValue: 0.09, paid: true },
-  { id: 4761, brandId: 24, date: daysAgo(1, 23.9), image: img(60), imageHash: "0x…", city: "Panama City, PA", inHunt: false, rarity: 0.5, usdValue: 0.07, paid: true },
-  { id: 4760, brandId: 71, date: daysAgo(1, 24.3), image: img(61), imageHash: "0x…", city: "Rio de Janeiro, BR", inHunt: false, rarity: 0.75, usdValue: 0.11, paid: true },
-  { id: 4759, brandId: 60, date: daysAgo(1, 24.8), image: img(62), imageHash: "0x…", city: "Budapest, HU", inHunt: false, rarity: 0.9, usdValue: 0.14, paid: true },
-  { id: 4758, brandId: 56, date: daysAgo(1, 25.2), image: img(63), imageHash: "0x…", city: "Bucharest, RO", inHunt: true, rarity: 0.75, usdValue: 0.11, paid: true },
-  { id: 4757, brandId: 53, date: daysAgo(1, 25.7), image: img(64), imageHash: "0x…", city: "Barcelona, ES", inHunt: false, rarity: 2.8, usdValue: 0.42, paid: true },
-  { id: 4756, brandId: 48, date: daysAgo(1, 26.1), image: img(65), imageHash: "0x…", city: "Brussels, BE", inHunt: false, rarity: 0.85, usdValue: 0.13, paid: true },
-  { id: 4755, brandId: 1, date: daysAgo(1, 26.6), image: img(66), imageHash: "0x…", city: "Ho Chi Minh City, VN", inHunt: false, rarity: 0.62, usdValue: 0.09, paid: true },
-  { id: 4754, brandId: 10, date: daysAgo(1, 27), image: img(67), imageHash: "0x…", city: "Santiago, CL", inHunt: true, rarity: 1, usdValue: 0.15, paid: true },
-  { id: 4753, brandId: 72, date: daysAgo(1, 27.5), image: img(68), imageHash: "0x…", city: "Krakow, PL", inHunt: false, rarity: 1.7, usdValue: 0.26, paid: true },
-  { id: 4752, brandId: 44, date: daysAgo(1, 27.9), image: img(69), imageHash: "0x…", city: "Hamburg, DE", inHunt: false, rarity: 0.55, usdValue: 0.08, paid: true },
-  { id: 4751, brandId: 16, date: daysAgo(1, 28.4), image: img(70), imageHash: "0x…", city: "Rome, IT", inHunt: false, rarity: 4.4, usdValue: 0.66, paid: true },
-];
+const terrain: FicheDto[] = [];
 
 const chasse: ChasseDto = {
-  day: 20701,
+  day: DAY,
   brands: [brands[0]!, brands[9]!, brands[15]!, brands[3]!, brands[18]!],
   budgetUsd: 200,
-  spentUsd: 84.2,
-  sightingsToday: 168,
-  resetInSeconds: 9 * 3600 + 12 * 60,
+  spentUsd: 0,
+  sightingsToday: 0,
+  resetInSeconds: RESET_IN,
   budgetExhausted: false,
-  fragmentsEnabled: true,
+  fragmentsEnabled: false,
 };
 
 const plates: PlateDto[] = [
-  { id: 1, name: "Logistics", brandIds: [1, 2, 3, 4, 5, 12, 13], opensAt: 1_788_220_800, platesSealed: 12, closed: false },
-  { id: 2, name: "Beverages", brandIds: [6, 7, 8, 9, 19, 14, 15], opensAt: 1_788_220_800, platesSealed: 4, closed: false },
-  { id: 3, name: "Mobility", brandIds: [10, 11, 12, 13, 17, 18, 2], opensAt: 1_788_825_600, platesSealed: 0, closed: false },
-  { id: 4, name: "Fashion", brandIds: [20, 41, 42, 43, 75, 79, 53], opensAt: 1_788_220_800, platesSealed: 7, closed: false },
-  { id: 5, name: "Cards and banks", brandIds: [23, 24, 25, 95, 96, 68, 126], opensAt: 1_788_220_800, platesSealed: 2, closed: false },
-  { id: 6, name: "Airlines", brandIds: [80, 81, 61, 62, 107, 108, 37], opensAt: 1_788_825_600, platesSealed: 0, closed: false },
-  { id: 7, name: "Cars", brandIds: [44, 45, 46, 70, 121, 84, 116], opensAt: 1_788_220_800, platesSealed: 9, closed: false },
+  { id: 1, name: "Logistics", brandIds: [1, 2, 3, 4, 5, 12, 13], opensAt: OPENS_AT, platesSealed: 0, closed: false },
+  { id: 2, name: "Beverages", brandIds: [6, 7, 8, 9, 19, 14, 15], opensAt: OPENS_AT, platesSealed: 0, closed: false },
+  { id: 3, name: "Mobility", brandIds: [10, 11, 12, 13, 17, 18, 2], opensAt: OPENS_AT, platesSealed: 0, closed: false },
+  { id: 4, name: "Fashion", brandIds: [20, 41, 42, 43, 75, 79, 53], opensAt: OPENS_AT, platesSealed: 0, closed: false },
+  { id: 5, name: "Cards and banks", brandIds: [23, 24, 25, 95, 96, 68, 126], opensAt: OPENS_AT, platesSealed: 0, closed: false },
+  { id: 6, name: "Airlines", brandIds: [80, 81, 61, 62, 107, 108, 37], opensAt: OPENS_AT, platesSealed: 0, closed: false },
+  { id: 7, name: "Cars", brandIds: [44, 45, 46, 70, 121, 84, 116], opensAt: OPENS_AT, platesSealed: 0, closed: false },
 ];
 
 const vault: VaultDto = {
-  vault: "0x5A17d4f2C0E3b9a8D7c6B5a4E3f2D1c0B9a8F7e6",
-  explorer: "https://robinhoodchain.blockscout.com/address/0x5A17d4f2C0E3b9a8D7c6B5a4E3f2D1c0B9a8F7e6",
-  day: 20701,
+  vault: "0x0000000000000000000000000000000000000000",
+  explorer: "https://robinhoodchain.blockscout.com",
+  day: DAY,
   budgetUsd: 200,
-  spentUsd: 84.2,
+  spentUsd: 0,
   status: "STOCKED",
-  brands: brands.map((b, i) => ({
+  brands: brands.map((b) => ({
     brandId: b.id,
     name: b.name,
-    token: `0x${(b.id * 7919).toString(16).padStart(40, "0")}`,
-    units: String(180 + ((i * 37) % 260)),
-    usdValue: Number((90 + ((i * 53) % 210)).toFixed(2)),
+    token: "0x0000000000000000000000000000000000000000",
+    units: "0",
+    usdValue: 0,
     explorer: "https://robinhoodchain.blockscout.com",
   })),
 };
 
 const stats: StatsDto = {
-  prisesParJour: [168, 402, 388, 415, 377, 390, 361],
-  prisesParJoueur7j: 5.4,
-  joueursActifs7j: 464,
-  tauxEscalade: 0.11,
-  comptesRisqueEleve: 0.012,
-  diversiteGeographique: 23,
-  budgetDuJour: { budgetUsd: 200, spentUsd: 84.2, claims: 160, fichesSeules: 8, rejets: 21 },
+  prisesParJour: [0, 0, 0, 0, 0, 0, 0],
+  prisesParJoueur7j: 0,
+  joueursActifs7j: 0,
+  tauxEscalade: 0,
+  comptesRisqueEleve: 0,
+  diversiteGeographique: 0,
+  budgetDuJour: { budgetUsd: 200, spentUsd: 0, claims: 0, fichesSeules: 0, rejets: 0 },
 };
 
 export const demo = { brands, fiches, terrain, chasse, plates, vault, stats, img };
