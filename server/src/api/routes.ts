@@ -40,7 +40,15 @@ export interface RouteDeps {
 
 const sensorSchema = z.array(z.object({ t: z.number(), ax: z.number(), ay: z.number(), az: z.number(), gx: z.number(), gy: z.number(), gz: z.number() })).max(2000);
 
+/** The site relays the lens calls with the player's place and IP in x-spot-* headers, authenticated by a shared secret. */
+function viaSite(req: FastifyRequest): boolean {
+  const secret = process.env.PROXY_SECRET;
+  return Boolean(secret) && req.headers["x-spot-proxy"] === secret;
+}
+
 function clientIp(req: FastifyRequest): string {
+  const relayed = req.headers["x-spot-ip"];
+  if (viaSite(req) && typeof relayed === "string") return relayed;
   const cf = req.headers["cf-connecting-ip"];
   if (typeof cf === "string") return cf;
   return req.ip;
@@ -48,8 +56,9 @@ function clientIp(req: FastifyRequest): string {
 
 function geo(req: FastifyRequest): { country: string | null; city: string | null } {
   // outside production, DEV_COUNTRY stands in for the edge header (local runs have no Cloudflare in front)
-  const country = req.headers["cf-ipcountry"] ?? (process.env.NODE_ENV !== "production" ? process.env.DEV_COUNTRY : undefined);
-  const city = req.headers["cf-ipcity"];
+  const relayed = viaSite(req);
+  const country = (relayed ? req.headers["x-spot-country"] : undefined) ?? req.headers["cf-ipcountry"] ?? (process.env.NODE_ENV !== "production" ? process.env.DEV_COUNTRY : undefined);
+  const city = (relayed ? req.headers["x-spot-city"] : undefined) ?? req.headers["cf-ipcity"];
   return { country: typeof country === "string" && country !== "XX" ? country : null, city: typeof city === "string" ? city : null };
 }
 
