@@ -6,6 +6,9 @@ import { motion, AnimatePresence } from "motion/react";
 import { useAccount, usePublicClient, useWriteContract } from "wagmi";
 import type { BrandDto } from "@/lib/api";
 import { API_URL, DEMO, SECTEURS } from "@/lib/api";
+
+// in real mode the lens goes through the site (app/api/prise), which forwards the player's country and IP to the server
+const PRISE_BASE = DEMO ? API_URL : "/api";
 import { VAULT_ADDRESS, vaultAbi } from "@/lib/contracts";
 import { coeff, duree, tokens } from "@/lib/format";
 import { motifEn } from "@/lib/motifs";
@@ -147,7 +150,7 @@ export function Prise({ brand, inHunt, budgetExhausted, fragmentsPaused = false,
         imageHash: "0x00",
       };
     }
-    const res = await fetch(`${API_URL}${path}`, { method: "POST", body: form });
+    const res = await fetch(`${PRISE_BASE}${path}`, { method: "POST", body: form });
     if (!res.ok && res.status !== 400) throw new Error(`server ${res.status}`);
     return (await res.json()) as Outcome;
   }
@@ -255,7 +258,7 @@ export function Prise({ brand, inHunt, budgetExhausted, fragmentsPaused = false,
 
   async function redemander() {
     if (!outcome || outcome.kind !== "valide" || !address) return;
-    const res = await fetch(`${API_URL}/prise/${outcome.priseId}/voucher`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ wallet: address }) });
+    const res = await fetch(`${PRISE_BASE}/prise/${outcome.priseId}/voucher`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ wallet: address }) });
     if (!res.ok) return note("reissue refused", "red");
     const r = (await res.json()) as { voucher: Voucher; signature: `0x${string}` };
     await signAndMount({ ...outcome, voucher: r.voucher, signature: r.signature });
