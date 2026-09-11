@@ -55,3 +55,5 @@ brand/video/spot-teaser.mp4
 app/.vercel-deploy.log
 contracts/admit.log
 .render-login.log
+keeper/*.log
+keeper/*.err
