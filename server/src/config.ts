@@ -52,6 +52,8 @@ const schema = z.object({
   VOUCHER_LIFETIME_S: z.coerce.number().int().positive().default(30 * 60),
   TRUSTED_PROXY: z.coerce.boolean().default(true),
   /** « Fiches d'abord, fragments ensuite » : à faux, les prises sont validées et consignées mais valent 0 fragment. */
+  /** Day one, before the on-chain commit-reveal has started: the brands hunted today, comma separated. */
+  HUNT_FALLBACK_BRAND_IDS: z.string().optional().transform((v) => (v ?? "").split(",").map((s) => Number(s.trim())).filter((n) => Number.isInteger(n) && n > 0)),
   FRAGMENTS_ENABLED: envBool(true),
 });
 

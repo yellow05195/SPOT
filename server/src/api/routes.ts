@@ -34,7 +34,7 @@ export interface RouteDeps {
   chain: ChainReader;
   store: ObjectStore;
   signer: VoucherSigner;
-  config: { dailyBudgetUsd: number; chainId: number; vault: Address | null; explorer: string; fragmentsEnabled: boolean };
+  config: { dailyBudgetUsd: number; chainId: number; vault: Address | null; explorer: string; fragmentsEnabled: boolean; huntFallback?: number[] };
   now: () => number;
 }
 
@@ -140,7 +140,7 @@ export async function registerRoutes(app: FastifyInstance, d: RouteDeps): Promis
   app.get("/chasse", async () => {
     const now = d.now();
     const day = dayIndex(now);
-    const ids = (await d.chain.huntToday(day)) ?? (await d.repos.hunts.today(new Date(now).toISOString().slice(0, 10))) ?? [];
+    const ids = (await d.chain.huntToday(day)) ?? (await d.repos.hunts.today(new Date(now).toISOString().slice(0, 10))) ?? d.config.huntFallback ?? [];
     const brands = await Promise.all(ids.map((id) => d.repos.brands.get(id)));
     const stats = await d.repos.stats.get(new Date(now).toISOString().slice(0, 10));
     const budget = await d.chain.budgetState();

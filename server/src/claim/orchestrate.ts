@@ -38,7 +38,7 @@ export interface PriseDeps {
   signer: VoucherSigner;
   domain: TypedDataDomain;
   nonces: NonceSource;
-  config: { dailyBudgetUsd: number; counterAngleRate: number; counterAngleRateHighRisk: number; voucherLifetimeS: number; fragmentsEnabled: boolean };
+  config: { dailyBudgetUsd: number; counterAngleRate: number; counterAngleRateHighRisk: number; voucherLifetimeS: number; fragmentsEnabled: boolean; huntFallback?: number[] };
   now: () => number;
   rng: () => number;
   log: { info: (o: object, msg: string) => void; warn: (o: object, msg: string) => void };
@@ -159,7 +159,7 @@ export class PriseService {
 
     // Valeur du fragment
     const day = dayIndex(now);
-    const hunt = (await this.d.chain.huntToday(day)) ?? (await this.d.repos.hunts.today(this.today())) ?? [];
+    const hunt = (await this.d.chain.huntToday(day)) ?? (await this.d.repos.hunts.today(this.today())) ?? this.d.config.huntFallback ?? [];
     const inHunt = isInHunt(hunt, brand.id);
     const rarity = brand.rarity;
     const expected = expectedPrises(await this.d.repos.sightings.countByDay(7, new Date(now)));
@@ -319,7 +319,7 @@ export class PriseService {
     if (!verdict.ok) return fail(verdict.reason ?? "contre-angle trop proche");
 
     const day = dayIndex(now);
-    const hunt = (await this.d.chain.huntToday(day)) ?? [];
+    const hunt = (await this.d.chain.huntToday(day)) ?? this.d.config.huntFallback ?? [];
     return this.issue(p, {
       inHunt: isInHunt(hunt, brand.id),
       rarity: brand.rarity,

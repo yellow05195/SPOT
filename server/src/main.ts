@@ -108,7 +108,7 @@ export async function buildApp() {
     signer,
     domain: spotDomain(cfg.CHAIN_ID, vault),
     nonces: new NonceSource(),
-    config: { dailyBudgetUsd: cfg.DAILY_BUDGET_USD, counterAngleRate: cfg.COUNTER_ANGLE_RATE, counterAngleRateHighRisk: cfg.COUNTER_ANGLE_RATE_HIGH_RISK, voucherLifetimeS: cfg.VOUCHER_LIFETIME_S, fragmentsEnabled: cfg.FRAGMENTS_ENABLED },
+    config: { dailyBudgetUsd: cfg.DAILY_BUDGET_USD, counterAngleRate: cfg.COUNTER_ANGLE_RATE, counterAngleRateHighRisk: cfg.COUNTER_ANGLE_RATE_HIGH_RISK, voucherLifetimeS: cfg.VOUCHER_LIFETIME_S, fragmentsEnabled: cfg.FRAGMENTS_ENABLED, huntFallback: cfg.HUNT_FALLBACK_BRAND_IDS },
     now: () => Date.now(),
     rng: Math.random,
     log,
@@ -120,7 +120,7 @@ export async function buildApp() {
     chain,
     store,
     signer,
-    config: { dailyBudgetUsd: cfg.DAILY_BUDGET_USD, chainId: cfg.CHAIN_ID, vault: cfg.VAULT_ADDRESS ? (cfg.VAULT_ADDRESS as Address) : null, explorer: "https://robinhoodchain.blockscout.com", fragmentsEnabled: cfg.FRAGMENTS_ENABLED },
+    config: { dailyBudgetUsd: cfg.DAILY_BUDGET_USD, chainId: cfg.CHAIN_ID, vault: cfg.VAULT_ADDRESS ? (cfg.VAULT_ADDRESS as Address) : null, explorer: "https://robinhoodchain.blockscout.com", fragmentsEnabled: cfg.FRAGMENTS_ENABLED, huntFallback: cfg.HUNT_FALLBACK_BRAND_IDS },
     now: () => Date.now(),
   });
 
