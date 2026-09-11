@@ -4,6 +4,18 @@ Le plan minute par minute pour ouvrir le site aujourd'hui. Il complète `DEPLOY.
 
 Le principe du jour J : **fiches d'abord, fragments ensuite.** Le serveur démarre avec `FRAGMENTS_ENABLED=false` : tout le jeu fonctionne (lens, vérification, fiches, planches, carte, chasse du jour), chaque photo validée est enregistrée sur la chaîne, mais aucun Stock Token ne circule. Les fragments s'allument en changeant une variable, quand l'inventaire est dans le coffre et que l'avocat a répondu. Cela évite de bloquer la sortie sur les adresses de tokens, les flux de prix et le cadre légal.
 
+## En production depuis le 12 septembre 2026
+
+| Quoi | Où |
+|---|---|
+| Site | https://spotrwa.fun (Vercel, projet `spot`, dossier `app`) |
+| API | https://spot-server-phcv.onrender.com (Render, offre gratuite, photos dans Postgres, CLIP quantifié) |
+| Contrats | Robinhood Chain, adresses dans `contracts/deployments/robinhood-4663.json`, 134 marques admises en fiches seules |
+| Coffre (trésorerie des Stock Tokens) | 0x96b6e511B711988611660646006428B541BA5028 |
+| Keeper | provisoire : la clé du déployeur, lancé sur le PC de lancement, chasses engagées pour 30 jours |
+
+Ce qui est provisoire et à passer en payant dès qu'une carte est sur Render : le serveur (offre gratuite, s'endort après 15 minutes sans trafic, 512 Mo), la base gratuite (expire après 30 jours), le keeper sur un PC. Les commandes de mise à niveau sont dans `DEPLOY.md`.
+
 ## Ce qui est vérifié, aujourd'hui, sur cette machine
 
 | Brique | État |
