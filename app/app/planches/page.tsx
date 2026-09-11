@@ -24,6 +24,7 @@ export default async function PlatesPage() {
       <hr className="rule" />
       <Stagger>
         <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+          {plates.length === 0 && <p className="legend">The first series open soon.</p>}
           {plates.map((p) => {
             const open = p.opensAt <= now && !p.closed;
             return (

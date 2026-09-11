@@ -168,8 +168,8 @@ const chasse: ChasseDto = {
 };
 
 const plates: PlateDto[] = [
-  { id: 1, name: "Logistics", brandIds: [1, 2, 3, 4, 5, 12, 13], opensAt: OPENS_AT, platesSealed: 0, closed: false },
-  { id: 2, name: "Beverages", brandIds: [6, 7, 8, 9, 19, 14, 15], opensAt: OPENS_AT, platesSealed: 0, closed: false },
+  { id: 1, name: "Logistics", brandIds: [1, 2, 3, 4, 5, 39, 12], opensAt: OPENS_AT, platesSealed: 0, closed: false },
+  { id: 2, name: "Beverages", brandIds: [6, 7, 8, 9, 55, 132, 122], opensAt: OPENS_AT, platesSealed: 0, closed: false },
   { id: 3, name: "Mobility", brandIds: [10, 11, 12, 13, 17, 18, 2], opensAt: OPENS_AT, platesSealed: 0, closed: false },
   { id: 4, name: "Fashion", brandIds: [20, 41, 42, 43, 75, 79, 53], opensAt: OPENS_AT, platesSealed: 0, closed: false },
   { id: 5, name: "Cards and banks", brandIds: [23, 24, 25, 95, 96, 68, 126], opensAt: OPENS_AT, platesSealed: 0, closed: false },
