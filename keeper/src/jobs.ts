@@ -3,6 +3,9 @@ import type { Address, Hex } from "viem";
 import pino from "pino";
 import type { Config } from "./config.js";
 import { clients, readBrands, readPrice, consumedLast24h, registryAbi, vaultAbi, swapperAbi, buildRoute, type Clients } from "./chain.js";
+
+/** Sentinelle du registre pour une marque admise sans token ni flux (ISpotRegistry.UNPRICED). */
+const UNPRICED = "0x0000000000000000000000000000000000000001";
 import { computeRarities, toChain } from "./rarity.js";
 import { planHunts, commitment, dayIndex, type HuntSecret } from "./hunt.js";
 import { planPurchase, budgetCycle, minAmountOut, slippageBps } from "./inventory.js";
@@ -29,7 +32,10 @@ export async function inventoryJob(d: JobDeps): Promise<void> {
   if (!cfg.SWAPPER_ADDRESS || !cfg.WETH_ADDRESS || !cfg.USDG_ADDRESS) {
     log.warn("SWAPPER/WETH/USDG absents : inventaire en lecture seule");
   }
-  const brands = (await readBrands(c, cfg.REGISTRY_ADDRESS as Address)).filter((b) => b.active);
+  // les marques admises sans actif (lancement « fiches d'abord ») n'ont ni prix ni inventaire : on les ignore ici
+  const all = (await readBrands(c, cfg.REGISTRY_ADDRESS as Address)).filter((b) => b.active);
+  const brands = all.filter((b) => b.token.toLowerCase() !== UNPRICED);
+  if (brands.length < all.length) log.info({ unpriced: all.length - brands.length }, "marques sans actif ignorées pour l'inventaire");
   const head = await c.pub.getBlockNumber();
   const blocksPerDay = 864_000n; // ~100 ms par bloc
   const consumed = await consumedLast24h(c, cfg.VAULT_ADDRESS as Address, head > blocksPerDay ? head - blocksPerDay : 0n);

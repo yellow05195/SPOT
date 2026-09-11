@@ -3,7 +3,7 @@ pragma solidity 0.8.26;
 
 import {SpotBase} from "./SpotBase.t.sol";
 import {SpotRegistry} from "../src/SpotRegistry.sol";
-import {ISpotRegistry} from "../src/interfaces/ISpotRegistry.sol";
+import {ISpotRegistry, UNPRICED} from "../src/interfaces/ISpotRegistry.sol";
 import {MockStockToken, MockFeed, MockDeadToken, MockERC20} from "./mocks/Mocks.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
@@ -318,5 +318,41 @@ contract SpotRegistryTest is SpotBase {
         vm.prank(owner);
         vm.expectRevert(abi.encodeWithSelector(SpotRegistry.PlateAlreadyClosed.selector, plateId));
         registry.closePlate(plateId);
+    }
+
+    function test_addBrandCardsOnly_thenSetAssets() public {
+        vm.prank(owner);
+        uint32 id = registry.addBrandCardsOnly("Tesla", 3);
+        ISpotRegistry.Brand memory b = registry.getBrand(id);
+        assertEq(b.token, UNPRICED);
+        assertEq(b.priceFeed, UNPRICED);
+        assertTrue(b.active);
+        assertEq(registry.rarity(id), registry.RARITY_ONE());
+
+        MockStockToken tsla = new MockStockToken("Tesla Stock Token", "TSLA");
+        MockFeed f = new MockFeed(8, 250e8);
+        vm.prank(owner);
+        registry.setBrandAssets(id, address(tsla), address(f));
+        b = registry.getBrand(id);
+        assertEq(b.token, address(tsla));
+        assertEq(b.priceFeed, address(f));
+
+        // une seule fois : le coffre tient sa réserve par token
+        vm.prank(owner);
+        vm.expectRevert(abi.encodeWithSelector(SpotRegistry.BrandAlreadyPriced.selector, id));
+        registry.setBrandAssets(id, address(amzn), address(amznFeed));
+    }
+
+    function test_setBrandAssets_checksFeedAndToken() public {
+        vm.prank(owner);
+        uint32 id = registry.addBrandCardsOnly("Tesla", 3);
+        MockFeed stale = new MockFeed(8, 250e8);
+        vm.warp(block.timestamp + 25 hours);
+        vm.prank(owner);
+        vm.expectRevert();
+        registry.setBrandAssets(id, address(amzn), address(stale));
+        vm.prank(alice);
+        vm.expectRevert(abi.encodeWithSelector(Ownable.OwnableUnauthorizedAccount.selector, alice));
+        registry.setBrandAssets(id, address(amzn), address(amznFeed));
     }
 }

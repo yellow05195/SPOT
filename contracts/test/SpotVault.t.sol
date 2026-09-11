@@ -3,6 +3,7 @@ pragma solidity 0.8.26;
 
 import {SpotBase} from "./SpotBase.t.sol";
 import {SpotVault} from "../src/SpotVault.sol";
+import {UNPRICED} from "../src/interfaces/ISpotRegistry.sol";
 import {SpotSightings} from "../src/SpotSightings.sol";
 import {ISpotVault} from "../src/interfaces/ISpotVault.sol";
 import {UnitQueue} from "../src/libraries/UnitQueue.sol";
@@ -10,6 +11,20 @@ import {MockStockToken, MockFeed, ReentrantReceiver, IReenter} from "./mocks/Moc
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 contract SpotVaultTest is SpotBase {
+    function test_claim_unpricedBrand_isCardOnly() public {
+        vm.prank(owner);
+        uint32 id = registry.addBrandCardsOnly("Tesla", 3);
+        (ISpotVault.Voucher memory v, bytes memory s) = _signed(alice, id, 0, UNPRICED);
+        assertFalse(vault.claim(v, s));
+        assertEq(sightings.balanceOf(alice, sightings.sightingId(alice, id, _day())), 1);
+        assertEq(vault.spentTodayUsd(), 0);
+
+        // même avec un montant, rien ne part : la fiche seulement
+        (ISpotVault.Voucher memory v2, bytes memory s2) = _signed(bob, id, 1e18, UNPRICED);
+        assertFalse(vault.claim(v2, s2));
+        assertEq(sightings.balanceOf(bob, sightings.sightingId(bob, id, _day())), 1);
+    }
+
     uint128 internal constant UNIT = 0.002e18; // ≈ 0,46 $ d'AMZN à 230 $
     uint128 internal constant FRAGMENT = 0.0021e18; // ≈ 0,483 $
 

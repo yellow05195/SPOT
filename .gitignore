@@ -53,3 +53,4 @@ brand/video/spot-teaser.mp4
 # Vercel CLI link
 .vercel/
 app/.vercel-deploy.log
+contracts/admit.log

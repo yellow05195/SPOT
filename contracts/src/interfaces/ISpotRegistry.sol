@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.26;
 
+// Marque admise sans actif (lancement "fiches d'abord") : token et flux valent cette sentinelle jusqu'à setBrandAssets.
+address constant UNPRICED = address(1);
+
 interface ISpotRegistry {
     struct Brand {
         uint32 id;

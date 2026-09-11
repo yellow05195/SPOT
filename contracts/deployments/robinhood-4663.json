@@ -1,0 +1,24 @@
+{
+  "chainId": 4663,
+  "rpc": "https://rpc.mainnet.chain.robinhood.com",
+  "explorer": "https://robinhoodchain.blockscout.com",
+  "deployedAt": "2026-09-12",
+  "registry": "0x4CeCC103c4AfF2F2E3B4260937ee50d55732DbEc",
+  "sightings": "0xcFA2b0E6553CB9f7f7E666e42f37fb308D68D5D1",
+  "vault": "0x96b6e511B711988611660646006428B541BA5028",
+  "plates": "0xe0E2B8C569503361f92AA0a7fbe246c0EeA2649b",
+  "signer": "0x72EFF5ea60B0c47e561d2903CD77d51BdF2d3e99",
+  "keeper": "0xcA8b22cF4E35B9fFCD5Eb756F317b50EF435B690",
+  "guardian": "0x574d7946Cd4B0844A4E99B47964E4bc972707019",
+  "owner": "0xd82DeCe2CEd417B20486Ac7acb154AAB6dadc2a1",
+  "bonusToken": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+  "dailyBudgetUsd8": "20000000000",
+  "notes": "Owner is the launch deployer wallet; move to a multisig. Brands admitted with addBrandCardsOnly (token and feed = UNPRICED) while FRAGMENTS_ENABLED=false; wire real assets with setBrandAssets.",
+  "abandoned": {
+    "registry": "0x64840cedF5b16F49dc3B9392aB17F8b1daA85313",
+    "sightings": "0x49612a9117D6f4FaBFDC765E8037B65fA03f5d62",
+    "vault": "0x45a223B7Db162f8297eCb873A82ffBD18fb8deAb",
+    "plates": "0x324A18dbd6E3D2bDcE147FEeF745E02283B82db5",
+    "why": "first deployment, registry without cards-only admission, never used"
+  }
+}

@@ -47,10 +47,10 @@ cd contracts && OWNER=0xDEPLOYEUR SIGNER=0xSIGNER KEEPER=0xKEEPER GUARDIAN=0xGUA
 Puis les 134 marques, dans l'ordre du catalogue (l'ordre fixe les identifiants, et le corpus de reconnaissance est numéroté pareil) :
 
 ```bash
-PLACEHOLDER=1 REGISTRY=0xREGISTRY RPC_URL=https://rpc.mainnet.chain.robinhood.com PRIVATE_KEY=0xCLE_DU_DEPLOYEUR node contracts/scripts/admit-brands.mjs
+CARDS_ONLY=1 REGISTRY=0xREGISTRY RPC_URL=https://rpc.mainnet.chain.robinhood.com PRIVATE_KEY=0xCLE_DU_DEPLOYEUR node contracts/scripts/admit-brands.mjs
 ```
 
-`PLACEHOLDER=1` met une adresse factice comme token et flux de prix : correct tant que `FRAGMENTS_ENABLED=false`. Quand tu auras les vraies adresses, remplis `contracts/brands.json` et admets les marques suivantes sans placeholder, ou redéploie proprement. Si le script s'arrête, il indique `--from <id>` pour reprendre.
+`CARDS_ONLY=1` admet chaque marque sans token ni flux de prix (`addBrandCardsOnly`) : correct tant que `FRAGMENTS_ENABLED=false`. Quand tu auras les vraies adresses, remplis `contracts/brands.json` et branche-les marque par marque avec `setBrandAssets(id, token, feed)`, sans redéployer. Si le script s'arrête, il indique `--from <id>` pour reprendre.
 
 ### 15 à 30 min : le back end sur Render
 

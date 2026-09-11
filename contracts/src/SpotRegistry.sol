@@ -2,7 +2,7 @@
 pragma solidity 0.8.26;
 
 import {Ownable2Step, Ownable} from "@openzeppelin/contracts/access/Ownable2Step.sol";
-import {ISpotRegistry} from "./interfaces/ISpotRegistry.sol";
+import {ISpotRegistry, UNPRICED} from "./interfaces/ISpotRegistry.sol";
 import {AggregatorV3Interface} from "./interfaces/AggregatorV3Interface.sol";
 import {IStockToken} from "./interfaces/IStockToken.sol";
 
@@ -48,6 +48,7 @@ contract SpotRegistry is Ownable2Step, ISpotRegistry {
 
     event BrandAdded(uint32 indexed brandId, string name, address token, address priceFeed, uint16 sector);
     event BrandDeactivated(uint32 indexed brandId);
+    event BrandAssetsSet(uint32 indexed brandId, address token, address priceFeed);
     event PlateCreated(uint32 indexed plateId, string name, uint32[] brandIds, uint32 opensAt);
     event PlateClosed(uint32 indexed plateId);
     event PlateSealRecorded(uint32 indexed plateId, uint32 sealedBefore);
@@ -76,6 +77,7 @@ contract SpotRegistry is Ownable2Step, ISpotRegistry {
     error FeedRoundIncomplete(uint80 roundId, uint80 answeredInRound);
     error TokenDecimalsMismatch(uint8 got);
     error TokenNoMultiplier();
+    error BrandAlreadyPriced(uint32 brandId);
     error HuntAlreadyCommitted(uint32 day);
     error HuntCommitTooLate(uint32 day);
     error HuntNotCommitted(uint32 day);
@@ -134,6 +136,31 @@ contract SpotRegistry is Ownable2Step, ISpotRegistry {
         _rarity[brandId] = RARITY_ONE;
         emit BrandAdded(brandId, name, token, priceFeed, sector);
         emit RarityUpdated(brandId, RARITY_ONE, RARITY_ONE);
+    }
+
+    /// @notice Admet une marque sans token ni flux de prix (lancement "fiches d'abord") : les fiches, les
+    ///         planches et la carte fonctionnent, aucun fragment ne peut partir tant que setBrandAssets
+    ///         n'a pas branché les vrais actifs.
+    function addBrandCardsOnly(string calldata name, uint16 sector) external onlyOwner returns (uint32 brandId) {
+        if (bytes(name).length == 0) revert EmptyName();
+        brandId = ++_brandCount;
+        _brands[brandId] = Brand({id: brandId, name: name, token: UNPRICED, priceFeed: UNPRICED, sector: sector, active: true});
+        _rarity[brandId] = RARITY_ONE;
+        emit BrandAdded(brandId, name, UNPRICED, UNPRICED, sector);
+        emit RarityUpdated(brandId, RARITY_ONE, RARITY_ONE);
+    }
+
+    /// @notice Branche le Stock Token et son flux de prix sur une marque admise sans actif. Une seule fois :
+    ///         le coffre tient sa réserve par token, changer un token déjà en service casserait la comptabilité.
+    function setBrandAssets(uint32 brandId, address token, address priceFeed) external onlyOwner {
+        Brand storage b = _brand(brandId);
+        if (b.token != UNPRICED) revert BrandAlreadyPriced(brandId);
+        if (token == address(0) || priceFeed == address(0)) revert ZeroAddress();
+        _checkFeed(priceFeed);
+        _checkToken(token);
+        b.token = token;
+        b.priceFeed = priceFeed;
+        emit BrandAssetsSet(brandId, token, priceFeed);
     }
 
     /// @notice Sort une marque du jeu immédiatement (spec 1.4 : retrait sous 48 h, sans discussion).

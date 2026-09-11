@@ -11,7 +11,7 @@ import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 
 import {UnitQueue} from "./libraries/UnitQueue.sol";
 import {ISpotVault} from "./interfaces/ISpotVault.sol";
-import {ISpotRegistry} from "./interfaces/ISpotRegistry.sol";
+import {ISpotRegistry, UNPRICED} from "./interfaces/ISpotRegistry.sol";
 import {ISpotSightings} from "./interfaces/ISpotSightings.sol";
 import {AggregatorV3Interface} from "./interfaces/AggregatorV3Interface.sol";
 import {IStockToken} from "./interfaces/IStockToken.sol";
@@ -223,6 +223,11 @@ contract SpotVault is ISpotVault, EIP712, ReentrancyGuard, Ownable2Step {
             return false;
         }
         if (v.amount == 0) {
+            emit SightingOnly(v.wallet, v.brandId, v.nonce, sightingId, Reason.NoFragment);
+            return false;
+        }
+        // marque admise sans actif : la fiche est frappée, aucun fragment ne peut partir
+        if (b.token == UNPRICED) {
             emit SightingOnly(v.wallet, v.brandId, v.nonce, sightingId, Reason.NoFragment);
             return false;
         }
